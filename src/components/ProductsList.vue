@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import response from '@/mocks/products.json'
 import { onMounted } from 'vue'
 import { useProductsStore } from '@/stores/products'
 import { storeToRefs } from 'pinia'
