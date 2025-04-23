@@ -16,7 +16,7 @@ const navLinks = [
 
 <template>
   <header class="flex justify-center leading-loose max-h-screen">
-    <div class="flex items-start flex-wrap">
+    <div class="flex items-start flex-wrap mb-8">
       <NavBar :navLinks="navLinks" />
     </div>
   </header>
