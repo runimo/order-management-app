@@ -1,0 +1,1007 @@
+{
+    "data": [
+      {
+        "type": "Company",
+        "id": "company-001",
+        "attributes": {
+          "name": "Company 001",
+          "address": "123 First St., New York, USA"
+        },
+        "relationships": {
+          "products": {
+            "data": [
+              { 
+                "type": "Product",
+                "id": "product-001"
+              },
+              {
+                "type": "Product",
+                "id": "product-002"
+              }
+            ]
+          },
+          "createdOrders": {
+            "data": [
+              {
+                "type": "Order",
+                "id": "order-001"
+              },
+              {
+                "type": "Order",
+                "id": "order-002"
+              },
+              {
+                "type": "Order",
+                "id": "order-003"
+              },
+              {
+                "type": "Order",
+                "id": "order-004"
+              },
+              {
+                "type": "Order",
+                "id": "order-006"
+              }
+            ]
+          },
+          "receivedOrders": {
+            "data": [
+                {
+                  "type": "Order",
+                  "id": "order-005"
+                },
+                {
+                  "type": "Order",
+                  "id": "order-007"
+                },
+                {
+                  "type": "Order",
+                  "id": "order-008"
+                }
+            ]
+          }
+        }
+      },
+      {
+        "type": "Company",
+        "id": "company-002",
+        "attributes": {
+          "name": "Company 002",
+          "address": "456 Second St., Los Angeles, USA"
+        },
+        "relationships": {
+          "products": {
+            "data": [
+              {
+                "type": "Product",
+                "id": "product-003"
+              },
+              {
+                "type": "Product",
+                "id": "product-004"
+              },
+              {
+                "type": "Product",
+                "id": "product-032"
+              },
+              {
+                "type": "Product",
+                "id": "product-033"
+              }
+            ]
+          },
+          "createdOrders": {
+            "data": [
+              {
+                "type": "Order",
+                "id": "order-008"
+              }
+            ]
+          },
+          "receivedOrders": {
+            "data": [
+              {
+                "type": "Order",
+                "id": "order-003"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "Company",
+        "id": "company-003",
+        "attributes": {
+          "name": "Company 003",
+          "address": "789 Third St., Toronto, Canada"
+        },
+        "relationships": {
+          "products": {
+            "data": [
+              {
+                "type": "Product",
+                "id": "product-005"
+              },
+              {
+                "type": "Product",
+                "id": "product-006"
+              },
+              {
+                "type": "Product",
+                "id": "product-034"
+              },
+              {
+                "type": "Product",
+                "id": "product-035"
+              },
+              {
+                "type": "Product",
+                "id": "product-036"
+              },
+              {
+                "type": "Product",
+                "id": "product-009"
+              },
+              {
+                "type": "Product",
+                "id": "product-010"
+              }
+            ]
+          },
+          "createdOrders": {
+            "data": [
+              {
+                "type": "Order",
+                "id": "order-007"
+              }
+            ]
+          },
+          "receivedOrders": {
+            "data": [
+              {
+                "type": "Order",
+                "id": "order-001"
+              },
+              {
+                "type": "Order",
+                "id": "order-006"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "Company",
+        "id": "company-004",
+        "attributes": {
+          "name": "Company 004",
+          "address": "101 Fourth St., London, UK"
+        },
+        "relationships": {
+          "products": {
+            "data": [
+              {
+                "type": "Product",
+                "id": "product-007"
+              },
+              {
+                "type": "Product",
+                "id": "product-008"
+              }
+            ]
+          },
+          "createdOrders": {
+            "data": []
+          },
+          "receivedOrders": {
+            "data": []
+          }
+        }
+      },
+      {
+        "type": "Company",
+        "id": "company-005",
+        "attributes": {
+          "name": "Company 005",
+          "address": "202 Fifth St., Paris, France"
+        },
+        "relationships": {
+          "products": {
+            "data": []
+          },
+          "createdOrders": {
+            "data": []
+          },
+          "receivedOrders": {
+            "data": []
+          }
+        }
+      },
+      {
+        "type": "Company",
+        "id": "company-006",
+        "attributes": {
+          "name": "Company 006",
+          "address": "303 Sixth St., Tokyo, Japan"
+        },
+        "relationships": {
+          "products": {
+            "data": [
+              {
+                "type": "Product", 
+                "id": "product-011"
+              },
+              {
+                "type": "Product",
+                "id": "product-012"
+              }
+            ]
+          },
+          "createdOrders": {
+            "data": []
+          },
+          "receivedOrders": {
+            "data": []
+          }
+        }
+      },
+      {
+        "type": "Company",
+        "id": "company-007",
+        "attributes": {
+          "name": "Company 007",
+          "address": "404 Seventh St., Berlin, Germany"
+        },
+        "relationships": {
+          "products": {
+            "data": [
+              {
+                "type": "Product",
+                "id": "product-013"
+              },
+              {
+                "type": "Product",
+                "id": "product-014"
+              }
+            ]
+          },
+          "createdOrders": {
+            "data": []
+          },
+          "receivedOrders": {
+            "data": []
+          }
+        }
+      },
+      {
+        "type": "Company",
+        "id": "company-008",
+        "attributes": {
+          "name": "Company 008",
+          "address": "Avenida del Sol 23, Madrid, Spain"
+        },
+        "relationships": {
+          "products": {
+            "data": [
+              {
+                "type": "Product",
+                "id": "product-015"
+              },
+              {
+                "type": "Product",
+                "id": "product-016"
+              }
+            ]
+          },
+          "createdOrders": {
+            "data": []
+          },
+          "receivedOrders": {
+            "data": [
+              {
+                "type": "Order",
+                "id": "order-002"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "Company",
+        "id": "company-009",
+        "attributes": {
+          "name": "Company 009",
+          "address": "606 Ninth St., Sydney, Australia"
+        },
+        "relationships": {
+          "products": {
+            "data": [
+              {
+                "type": "Product",
+                "id": "product-017"
+              },
+              {
+                "type": "Product",
+                "id": "product-018"
+              }
+            ]
+          },
+          "createdOrders": {
+            "data": []
+          },
+          "receivedOrders": {
+            "data": []
+          }
+        }
+      },
+      {
+        "type": "Company",
+        "id": "company-010",
+        "attributes": {
+          "name": "Company 010",
+          "address": "707 Tenth St., Seoul, South Korea"
+        },
+        "relationships": {
+          "products": {
+            "data": [
+              {
+                "type": "Product",
+                "id": "product-019"
+              },
+              {
+                "type": "Product",
+                "id": "product-020"
+              }
+            ]
+          },
+          "createdOrders": {
+            "data": []
+          },
+          "receivedOrders": {
+            "data": []
+          }
+        }
+      },
+      {
+        "type": "Company",
+        "id": "company-011",
+        "attributes": {
+          "name": "Company 011",
+          "address": "808 Eleventh St., Mexico City, Mexico"
+        },
+        "relationships": {
+          "products": {
+            "data": [
+              {
+                "type": "Product",
+                "id": "product-021"
+              },
+              {
+                "type": "Product",
+                "id": "product-022"
+              }
+            ]
+          },
+          "createdOrders": {
+            "data": []
+          },
+          "receivedOrders": {
+            "data": [
+              {
+                "type": "Order",
+                "id": "order-004"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "Company",
+        "id": "company-012",
+        "attributes": {
+          "name": "Company 012",
+          "address": "909 Twelfth St., Sao Paulo, Brazil"
+        },
+        "relationships": {
+          "products": {
+            "data": [
+              {
+                "type": "Product",
+                "id": "product-023"
+              },
+              {
+                "type": "Product",
+                "id": "product-024"
+              }
+            ]
+          },
+          "createdOrders": {
+            "data": []
+          },
+          "receivedOrders": {
+            "data": []
+          }
+        }
+      },
+      {
+        "type": "Company",
+        "id": "company-013",
+        "attributes": {
+          "name": "Company 013",
+          "address": "1013 Thirteenth St., Buenos Aires, Argentina"
+        },
+        "relationships": {
+          "products": {
+            "data": [
+              {
+                "type": "Product",
+                "id": "product-025"
+              },
+              {
+                "type": "Product",
+                "id": "product-026"
+              }
+            ]
+          },
+          "createdOrders": {
+            "data": []
+          },
+          "receivedOrders": {
+            "data": []
+          }
+        }
+      },
+      {
+        "type": "Company",
+        "id": "company-014",
+        "attributes": {
+          "name": "Company 014",
+          "address": "1124 Fourteenth St., Rome, Italy"
+        },
+        "relationships": {
+          "products": {
+            "data": [
+              {
+                "type": "Product",
+                "id": "product-027"
+              },
+              {
+                "type": "Product",
+                "id": "product-028"
+              }
+            ]
+          },
+          "createdOrders": {
+            "data": []
+          },
+          "receivedOrders": {
+            "data": []
+          }
+        }
+      },
+      {
+        "type": "Company",
+        "id": "company-015",
+        "attributes": {
+          "name": "Company 015",
+          "address": "1215 Fifteenth St., Cairo, Egypt"
+        },
+        "relationships": {
+          "products": {
+            "data": [
+              {
+                "type": "Product",
+                "id": "product-029"
+              },
+              {
+                "type": "Product",
+                "id": "product-030"
+              },
+              {
+                "type": "Product",
+                "id": "product-031"
+              }
+            ]
+          },
+          "createdOrders": {
+            "data": [
+              {
+                "type": "Order",
+                "id": "order-005"
+              }
+            ]
+          },
+          "receivedOrders": {
+            "data": []
+          }
+        }
+      }
+    ],
+    "included": [
+      {
+        "type": "Product",
+        "id": "product-001",
+        "attributes": {
+          "name": "Product Name 01",
+          "price": 36.15,
+          "stock": 47
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-002",
+        "attributes": {
+          "name": "Product Name 02",
+          "price": 132.27,
+          "stock": 42
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-003",
+        "attributes": {
+          "name": "Product Name 03",
+          "price": 157.43,
+          "stock": 76
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-004",
+        "attributes": {
+          "name": "Product Name 04",
+          "price": 143.66,
+          "stock": 97
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-005",
+        "attributes": {
+          "name": "Product Name 05",
+          "price": 130.22,
+          "stock": 32
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-006",
+        "attributes": {
+          "name": "Product Name 06",
+          "price": 41.35,
+          "stock": 35
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-007",
+        "attributes": {
+          "name": "Product Name 07",
+          "price": 67.85,
+          "stock": 18
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-008",
+        "attributes": {
+          "name": "Product Name 08",
+          "price": 48.86,
+          "stock": 83
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-009",
+        "attributes": {
+          "name": "Product Name 09",
+          "price": 147.67,
+          "stock": 41
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-010",
+        "attributes": {
+          "name": "Product Name 10",
+          "price": 54.98,
+          "stock": 15
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-011",
+        "attributes": {
+          "name": "Product Name 11",
+          "price": 178.6,
+          "stock": 29
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-012",
+        "attributes": {
+          "name": "Product Name 12",
+          "price": 83.37,
+          "stock": 86
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-013",
+        "attributes": {
+          "name": "Product Name 13",
+          "price": 166.31,
+          "stock": 31
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-014",
+        "attributes": {
+          "name": "Product Name 14",
+          "price": 89.05,
+          "stock": 82
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-015",
+        "attributes": {
+          "name": "Product Name 15",
+          "price": 168.17,
+          "stock": 40
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-016",
+        "attributes": {
+          "name": "Product Name 16",
+          "price": 36.75,
+          "stock": 18
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-017",
+        "attributes": {
+          "name": "Product Name 17",
+          "price": 47.65,
+          "stock": 67
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-018",
+        "attributes": {
+          "name": "Product Name 18",
+          "price": 49.48,
+          "stock": 31
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-019",
+        "attributes": {
+          "name": "Product Name 19",
+          "price": 179.33,
+          "stock": 47
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-020",
+        "attributes": {
+          "name": "Product Name 20",
+          "price": 128.24,
+          "stock": 4
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-021",
+        "attributes": {
+          "name": "Product Name 21",
+          "price": 148.34,
+          "stock": 4
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-022",
+        "attributes": {
+          "name": "Product Name 22",
+          "price": 118.18,
+          "stock": 98
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-023",
+        "attributes": {
+          "name": "Product Name 23",
+          "price": 139.35,
+          "stock": 92
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-024",
+        "attributes": {
+          "name": "Product Name 24",
+          "price": 131.02,
+          "stock": 68
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-025",
+        "attributes": {
+          "name": "Product Name 25",
+          "price": 117.08,
+          "stock": 84
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-026",
+        "attributes": {
+          "name": "Product Name 26",
+          "price": 68.3,
+          "stock": 71
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-027",
+        "attributes": {
+          "name": "Product Name 27",
+          "price": 110.64,
+          "stock": 75
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-028",
+        "attributes": {
+          "name": "Product Name 28",
+          "price": 123.49,
+          "stock": 58
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-029",
+        "attributes": {
+          "name": "Product Name 29",
+          "price": 133.23,
+          "stock": 70
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-030",
+        "attributes": {
+          "name": "Product Name 30",
+          "price": 42.06,
+          "stock": 1
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-031",
+        "attributes": {
+          "name": "Product Name 31",
+          "price": 42.06,
+          "stock": 1
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-032",
+        "attributes": {
+          "name": "Product Name 32",
+          "price": 42.06,
+          "stock": 1
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-033",
+        "attributes": {
+          "name": "Product Name 33",
+          "price": 42.06,
+          "stock": 1
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-034",
+        "attributes": {
+          "name": "Product Name 34",
+          "price": 42.06,
+          "stock": 1
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-035",
+        "attributes": {
+          "name": "Product Name 35",
+          "price": 42.06,
+          "stock": 1
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-036",
+        "attributes": {
+          "name": "Product Name 36",
+          "price": 42.06,
+          "stock": 1
+        }
+      },
+      {
+        "type": "Order",
+        "id": "order-001",
+        "attributes": {
+          "createdAt": "2025-04-01T00:00:00Z",
+          "orderNumber": "001",
+          "status": "delivered",
+          "quantities": [
+            {
+              "productId": "product-005",
+              "count": 1
+            },
+            {
+              "productId": "product-034",
+              "count": 7
+            },
+            {
+              "productId": "product-036",
+              "count": 5
+            },
+            {
+              "productId": "product-009",
+              "count": 4
+            }
+          ]
+        }
+      },
+      {
+        "type": "Order",
+        "id": "order-002",
+        "attributes": {
+          "createdAt": "2025-04-02T00:00:00Z",
+          "orderNumber": "002",
+          "status": "shipped",
+          "quantities": [
+            {
+              "productId": "product-015",
+              "count": 8
+            }
+          ]
+        }
+      },
+      {
+        "type": "Order",
+        "id": "order-003",
+        "attributes": {
+          "createdAt": "2025-04-03T00:00:00Z",
+          "orderNumber": "003",
+          "status": "delivered",
+          "quantities": [
+            {
+              "productId": "product-032",
+              "count": 8
+            },
+            {
+              "productId": "product-003",
+              "count": 17
+            }
+          ]
+        }
+      },
+      {
+        "type": "Order",
+        "id": "order-004",
+        "attributes": {
+          "createdAt": "2025-04-04T00:00:00Z",
+          "orderNumber": "004",
+          "status": "processing",
+          "quantities": [
+            {
+              "productId": "005",
+              "count": 9
+            },
+            {
+              "productId": "product-021",
+              "count": 4
+            },
+            {
+              "productId": "product-022",
+              "count": 2
+            }
+          ]
+        }
+      },
+      {
+        "type": "Order",
+        "id": "order-005",
+        "attributes": {
+          "createdAt": "2025-04-05T00:00:00Z",
+          "orderNumber": "005",
+          "status": "shipped",
+          "quantities": [
+            {
+              "productId": "product-001",
+              "count": 6
+            }
+          ]
+        }
+      },
+      {
+        "type": "Order",
+        "id": "order-006",
+        "attributes": {
+          "createdAt": "2025-04-06T00:00:00Z",
+          "orderNumber": "006",
+          "status": "shipped",
+          "quantities": [
+            {
+              "productId": "product-005",
+              "count": 8
+            },
+            {
+              "productId": "product-006",
+              "count": 5
+            },
+            {
+              "productId": "product-035",
+              "count": 1
+            },
+            {
+              "productId": "product-010",
+              "count": 5
+            }
+          ]
+        }
+      },
+      {
+        "type": "Order",
+        "id": "order-007",
+        "attributes": {
+          "createdAt": "2025-04-07T00:00:00Z",
+          "orderNumber": "007",
+          "status": "delivered",
+          "quantities": [
+            {
+              "productId": "product-001",
+              "count": 3
+            },
+            {
+              "productId": "product-002",
+              "count": 2
+            }
+          ]
+        }
+      },
+      {
+        "type": "Order",
+        "id": "order-008",
+        "attributes": {
+          "createdAt": "2025-04-08T00:00:00Z",
+          "orderNumber": "008",
+          "status": "shipped",
+          "quantities": [
+            {
+              "productId": "product-002",
+              "count": 4
+            }
+          ]
+        }
+      }
+    ]
+  }
+  

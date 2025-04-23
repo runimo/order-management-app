@@ -1,0 +1,723 @@
+{
+    "data": [
+      {
+        "type": "Product",
+        "id": "product-001",
+        "attributes": {
+          "name": "Product Name 01",
+          "price": 36.15,
+          "stock": 47
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-001"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-002",
+        "attributes": {
+          "name": "Product Name 02",
+          "price": 132.27,
+          "stock": 42
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-001"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-003",
+        "attributes": {
+          "name": "Product Name 03",
+          "price": 157.43,
+          "stock": 76
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-002"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-004",
+        "attributes": {
+          "name": "Product Name 04",
+          "price": 143.66,
+          "stock": 97
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-002"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-005",
+        "attributes": {
+          "name": "Product Name 05",
+          "price": 130.22,
+          "stock": 32
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-003"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-006",
+        "attributes": {
+          "name": "Product Name 06",
+          "price": 41.35,
+          "stock": 35
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-003"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-007",
+        "attributes": {
+          "name": "Product Name 07",
+          "price": 67.85,
+          "stock": 18
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-004"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-008",
+        "attributes": {
+          "name": "Product Name 08",
+          "price": 48.86,
+          "stock": 83
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-004"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-009",
+        "attributes": {
+          "name": "Product Name 09",
+          "price": 147.67,
+          "stock": 41
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-003"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-010",
+        "attributes": {
+          "name": "Product Name 10",
+          "price": 54.98,
+          "stock": 15
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-003"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-011",
+        "attributes": {
+          "name": "Product Name 11",
+          "price": 178.6,
+          "stock": 29
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-006"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-012",
+        "attributes": {
+          "name": "Product Name 12",
+          "price": 83.37,
+          "stock": 86
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-006"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-013",
+        "attributes": {
+          "name": "Product Name 13",
+          "price": 166.31,
+          "stock": 31
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-007"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-014",
+        "attributes": {
+          "name": "Product Name 14",
+          "price": 89.05,
+          "stock": 82
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-007"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-015",
+        "attributes": {
+          "name": "Product Name 15",
+          "price": 168.17,
+          "stock": 40
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-008"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-016",
+        "attributes": {
+          "name": "Product Name 16",
+          "price": 36.75,
+          "stock": 18
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-008"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-017",
+        "attributes": {
+          "name": "Product Name 17",
+          "price": 47.65,
+          "stock": 67
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-009"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-018",
+        "attributes": {
+          "name": "Product Name 18",
+          "price": 49.48,
+          "stock": 31
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-009"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-019",
+        "attributes": {
+          "name": "Product Name 19",
+          "price": 179.33,
+          "stock": 47
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-010"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-020",
+        "attributes": {
+          "name": "Product Name 20",
+          "price": 128.24,
+          "stock": 4
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-010"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-021",
+        "attributes": {
+          "name": "Product Name 21",
+          "price": 148.34,
+          "stock": 4
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-011"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-022",
+        "attributes": {
+          "name": "Product Name 22",
+          "price": 118.18,
+          "stock": 98
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-011"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-023",
+        "attributes": {
+          "name": "Product Name 23",
+          "price": 139.35,
+          "stock": 92
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-012"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-024",
+        "attributes": {
+          "name": "Product Name 24",
+          "price": 131.02,
+          "stock": 68
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-012"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-025",
+        "attributes": {
+          "name": "Product Name 25",
+          "price": 117.08,
+          "stock": 84
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-013"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-026",
+        "attributes": {
+          "name": "Product Name 26",
+          "price": 68.3,
+          "stock": 71
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-013"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-027",
+        "attributes": {
+          "name": "Product Name 27",
+          "price": 110.64,
+          "stock": 75
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-014"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-028",
+        "attributes": {
+          "name": "Product Name 28",
+          "price": 123.49,
+          "stock": 58
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-014"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-029",
+        "attributes": {
+          "name": "Product Name 29",
+          "price": 133.23,
+          "stock": 70
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-015"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-030",
+        "attributes": {
+          "name": "Product Name 30",
+          "price": 42.06,
+          "stock": 87
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-015"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-031",
+        "attributes": {
+          "name": "Product Name 31",
+          "price": 42.06,
+          "stock": 11
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-015"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-032",
+        "attributes": {
+          "name": "Product Name 32",
+          "price": 42.06,
+          "stock": 1
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-002"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-033",
+        "attributes": {
+          "name": "Product Name 33",
+          "price": 42.06,
+          "stock": 0
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-002"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-034",
+        "attributes": {
+          "name": "Product Name 34",
+          "price": 42.06,
+          "stock": 34
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-003"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-035",
+        "attributes": {
+          "name": "Product Name 35",
+          "price": 42.06,
+          "stock": 62
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-003"
+            }
+          }
+        }
+      },
+      {
+        "type": "Product",
+        "id": "product-036",
+        "attributes": {
+          "name": "Product Name 36",
+          "price": 42.06,
+          "stock": 5
+        },
+        "relationships": {
+          "supplier": {
+            "data": {
+              "type": "Company",
+              "id": "company-003"
+            }
+          }
+        }
+      }
+    ],
+    "included": [
+      {
+        "type": "Company",
+        "id": "company-001",
+        "attributes": {
+          "name": "Company 001"
+        }
+      },
+      {
+        "type": "Company",
+        "id": "company-002",
+        "attributes": {
+          "name": "Company 002"
+        }
+      },
+      {
+        "type": "Company",
+        "id": "company-003",
+        "attributes": {
+          "name": "Company 003"
+        }
+      },
+      {
+        "type": "Company",
+        "id": "company-004",
+        "attributes": {
+          "name": "Company 004"
+        }
+      },
+      {
+        "type": "Company",
+        "id": "company-005",
+        "attributes": {
+          "name": "Company 005"
+        }
+      },
+      {
+        "type": "Company",
+        "id": "company-006",
+        "attributes": {
+          "name": "Company 006"
+        }
+      },
+      {
+        "type": "Company",
+        "id": "company-007",
+        "attributes": {
+          "name": "Company 007"
+        }
+      },
+      {
+        "type": "Company",
+        "id": "company-008",
+        "attributes": {
+          "name": "Company 008"
+        }
+      },
+      {
+        "type": "Company",
+        "id": "company-009",
+        "attributes": {
+          "name": "Company 009"
+        }
+      },
+      {
+        "type": "Company",
+        "id": "company-010",
+        "attributes": {
+          "name": "Company 010"
+        }
+      },
+      {
+        "type": "Company",
+        "id": "company-011",
+        "attributes": {
+          "name": "Company 011"
+        }
+      },
+      {
+        "type": "Company",
+        "id": "company-012",
+        "attributes": {
+          "name": "Company 012"
+        }
+      },
+      {
+        "type": "Company",
+        "id": "company-013",
+        "attributes": {
+          "name": "Company 013"
+        }
+      },
+      {
+        "type": "Company",
+        "id": "company-014",
+        "attributes": {
+          "name": "Company 014"
+        }
+      },
+      {
+        "type": "Company",
+        "id": "company-015",
+        "attributes": {
+          "name": "Company 015"
+        }
+      }
+    ]
+  }
