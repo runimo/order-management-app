@@ -1,11 +1,46 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useProductsStore } from '@/stores/products'
 import { storeToRefs } from 'pinia'
+import BaseButton from './BaseButton.vue'
+import BaseInput from './BaseInput.vue'
 
 const productsStore = useProductsStore()
-const { fetchProducts } = productsStore
+const {
+  createProduct,
+  fetchProducts
+} = productsStore
 const { productsByCurrentUserCompany } = storeToRefs(productsStore)
+
+const isCreateFormOpen = ref(false)
+const toggleCreateForm = () => {
+  isCreateFormOpen.value = !isCreateFormOpen.value
+}
+
+const newProduct = ref({
+  name: '',
+  price: null,
+  stock: null
+})
+
+const cancel = (): void => {
+  toggleCreateForm()
+  reset()
+}
+
+const handleSave = (): void => {
+  createProduct(newProduct.value)
+  toggleCreateForm()
+  reset()
+}
+
+const reset = (): void => {
+  newProduct.value = {
+    name: '',
+    price: null,
+    stock: null
+  }
+}
 
 onMounted(() => {
   fetchProducts()
@@ -13,7 +48,49 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="block md:hidden space-y-4">
+  <div class="flex justify-center sm:justify-end">
+    <BaseButton
+      v-if="!isCreateFormOpen"
+      class="w-[90%] sm:w-[50%] md:w-[25%]"
+      @click="toggleCreateForm">
+      Add Product
+    </BaseButton>
+  </div>
+  <div
+    v-if="isCreateFormOpen"
+    class="flex justify-center">
+    <div
+      class="w-[90%] md:w-[50%] md:justify-end rounded-xs border border-gray-300 mt-4 p-4">
+      <BaseInput
+        id="name"
+        label="Name"
+        v-model="newProduct.name" />
+      <BaseInput
+        id="price"
+        label="Price (€)"
+        v-model="newProduct.price" />
+      <BaseInput
+        id="stock"
+        label="Stock"
+        v-model="newProduct.stock" />
+
+      <div class="flex flex-col sm:flex-row justify-end w-full gap-2 mt-4">
+        <BaseButton
+          class="w-full sm:w-[30%]"
+          variant="secondary"
+          @click="cancel">
+          Cancel
+        </BaseButton>
+        <BaseButton
+          class="w-full sm:w-[30%]"
+          @click="handleSave">
+          Save
+        </BaseButton>
+      </div>
+    </div>
+  </div>
+  
+  <div class="block md:hidden space-y-4 mt-8">
     <div
       v-for="product in productsByCurrentUserCompany"
       :key="product.id"
@@ -30,8 +107,8 @@ onMounted(() => {
     </div>
   </div>
 
-  <div class="hidden md:block">
-    <table class="min-w-full table-auto border-collapse border border-gray-300">
+  <div class="hidden md:block mt-8">
+    <table class="min-w-full table-auto rounded-sm border-collapse border border-gray-300">
       <thead>
         <tr class="bg-gray-100 text-left">
           <th class="p-2 border border-gray-300">
