@@ -5,7 +5,14 @@ import {
   defineProps
 } from 'vue'
 
-const { variant } = defineProps({
+const {
+  disabled,
+  variant
+} = defineProps({
+  disabled: {
+    type: Boolean,
+    default: false
+  },
   variant: {
     type: String,
     default: 'primary',
@@ -21,8 +28,8 @@ const emit = defineEmits([
 
 const buttonClasses = computed (() => {
   const baseClasses = 'rounded-3xl py-1 px-4 cursor-pointer'
-  const primaryClasses = 'bg-violet-700 text-white hover:bg-violet-800 focus:outline-none focus:ring-2 focus:ring-violet-300'
-  const secondaryClasses = 'border-2 border-violet-700 text-violet-700 hover:border-violet-800 text-violet-800 focus:outline-none focus:ring-2 focus:ring-violet-300'
+  const primaryClasses = 'bg-violet-700 text-white hover:bg-violet-800 focus:outline-none focus:ring-2 focus:ring-violet-300 disabled:bg-violet-400 disabled:cursor-default disabled:hover:bg-violet-400'
+  const secondaryClasses = 'border-2 border-violet-700 text-violet-700 hover:border-violet-800 text-violet-800 focus:outline-none focus:ring-2 focus:ring-violet-300 disabled:cursor-default disabled:border-violet-400 disabled:text-violet-400 disabled:hover:border-violet-400'
   
   return variant === 'primary'
     ? `${baseClasses} ${primaryClasses}`
@@ -33,6 +40,7 @@ const buttonClasses = computed (() => {
 <template>
   <button
     :class="buttonClasses"
+    :disabled="disabled ? true : null"
     type="button"
     @click="emit('click')">
     <slot />

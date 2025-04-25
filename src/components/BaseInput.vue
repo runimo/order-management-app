@@ -31,7 +31,7 @@ defineEmits([
       {{ label }}
     </label>
     <input
-      class="w-full border border-gray-300 rounded-xs mb-2 pl-2 h-[36px]"
+      class="w-full border border-gray-300 rounded-xs pl-2 h-[36px]"
       :id="id"
       type="text"
       v-model="model" />

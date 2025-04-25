@@ -62,19 +62,22 @@ onMounted(() => {
     <div
       class="w-[90%] md:w-[50%] md:justify-end rounded-xs border border-gray-300 mt-4 p-4">
       <BaseInput
+        class="mb-2"
         id="name"
         label="Name"
         v-model="newProduct.name" />
       <BaseInput
+        class="mb-2"
         id="price"
         label="Price (€)"
         v-model="newProduct.price" />
       <BaseInput
+        class="mb-2"
         id="stock"
         label="Stock"
         v-model="newProduct.stock" />
 
-      <div class="flex flex-col sm:flex-row justify-end w-full gap-2 mt-4">
+      <div class="flex flex-col sm:flex-row justify-end w-full gap-2 mt-6">
         <BaseButton
           class="w-full sm:w-[30%]"
           variant="secondary"

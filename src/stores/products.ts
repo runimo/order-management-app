@@ -2,9 +2,6 @@ import { defineStore } from 'pinia'
 import { useUserStore } from './user'
 import response from '@/mocks/products.json'
 
-const userStore = useUserStore()
-const { currentUser } = userStore
-
 export const useProductsStore = defineStore('products', {
     state: () => ({
       products: []
@@ -12,6 +9,8 @@ export const useProductsStore = defineStore('products', {
 
     actions: {
       createProduct ({ name, price, stock}: {name: string, price: number, stock: number}): void {
+        const userStore = useUserStore()
+        const { currentUser } = userStore
         const lastItemIdx = this.products.length - 1
         const lastItemId = this.products[lastItemIdx].id
         const id = lastItemId + 1
@@ -41,7 +40,16 @@ export const useProductsStore = defineStore('products', {
     },
 
     getters: {
+      productsByCompanyId (state) {
+        return (companyId: string) => {
+          return state.products.filter(product => product.relationships.supplier.data.id === companyId)
+        }
+      },
+
       productsByCurrentUserCompany(state) {
+        const userStore = useUserStore()
+        const { currentUser } = userStore
+
         if (!currentUser?.company?.id) {
           return []
         }
