@@ -4,6 +4,7 @@ import { storeToRefs } from 'pinia'
 import { useCompaniesStore } from '@/stores/companies'
 import { useOrdersStore } from '@/stores/orders'
 import { useProductsStore } from '@/stores/products'
+import ListActionFlyout from './ListActionFlyout.vue'
 import BaseButton from './BaseButton.vue'
 import BaseSelect from './BaseSelect.vue'
 import dayjs from 'dayjs'
@@ -122,11 +123,17 @@ const decreaseProductQuantity = (product): void => {
 const removeProduct = (productId: string): void => {
   newOrder.value.products = newOrder.value.products.filter(product => product.id !== productId)
 }
-const addProduct = (product) => {
+const addProduct = (product):void => {
   newOrder.value.products.push(product)
 }
 const increaseProductQuantity = (product): void => {
   product.count += 1
+}
+
+const openFlyoutId = ref<string | null>(null)
+
+const toggleFlyout = (id: string): void => {
+  openFlyoutId.value = openFlyoutId.value === id ? null : id
 }
 
 onMounted(() => {
@@ -282,9 +289,21 @@ onMounted(() => {
         v-for="order in createdOrdersByCurrentUserCompany"
         :key="order.id"
         class="p-4 bg-white rounded-xs shadow border border-gray-200">
-        <h2 class="text-lg font-semibold text-gray-900 mb-1">
-          #{{ order.attributes.orderNumber }}
-        </h2>
+        <div class="flex justify-between">
+          <h2 class="text-lg font-semibold text-gray-900 mb-1">
+            #{{ order.attributes.orderNumber }}
+          </h2>
+          <div class="relative inline-block">
+            <button
+              class="hover:bg-violet-100 hover:text-violet-700 cursor-pointer font-semibold leading-normal rounded-3xl pt-0 pb-2 px-1"
+              type="button"
+              @click="toggleFlyout(order.id)">
+              ...
+            </button>
+            <ListActionFlyout v-if="openFlyoutId === order.id" />
+          </div>
+        </div>
+        
         <p class="text-gray-700">
           <span class="font-semibold">Status:</span> {{ order.attributes.status }}
         </p>
@@ -301,17 +320,19 @@ onMounted(() => {
       <table class="min-w-full table-auto border-collapse border border-gray-300">
         <thead>
           <tr class="bg-gray-100 text-left">
-            <th class="p-2 border border-gray-300">
+            <th class="p-2 border-b border-t border-gray-300">
               Order Number
             </th>
-            <th class="p-2 border border-gray-300">
+            <th class="p-2 border-b border-t border-gray-300">
               Created at
             </th>
-            <th class="p-2 border border-gray-300">
+            <th class="p-2 border-b border-t border-gray-300">
               Status
             </th>
-            <th class="p-2 border border-gray-300">
+            <th class="p-2 border-b border-t border-gray-300">
               Supplier
+            </th>
+            <th>
             </th>
           </tr>
         </thead>
@@ -320,17 +341,28 @@ onMounted(() => {
             v-for="order in createdOrdersByCurrentUserCompany"
             :key="order.id"
             class="hover:bg-gray-50">
-            <td class="p-2 border border-gray-300">
+            <td class="p-2 border-b border-gray-300">
               #{{ order.attributes.orderNumber }}
             </td>
-            <td class="p-2 border border-gray-300">
+            <td class="p-2 border-b border-t border-gray-300">
               {{ formatDate(order.attributes.createdAt) }}
             </td>
-            <td class="p-2 border border-gray-300">
+            <td class="p-2 border-b border-t border-gray-300">
               {{ order.attributes.status }}
             </td>
-            <td class="p-2 border border-gray-300">
+            <td class="p-2 border-b border-t border-gray-300">
               {{ companiesStore.companies.find(company => company.id === order.relationships.supplier.data.id).attributes.name }}
+            </td>
+            <td class="p-2 border-b border-t border-gray-300">
+              <div class="relative inline-block">
+                <button
+                  class="hover:bg-violet-100 hover:text-violet-700 cursor-pointer font-semibold leading-normal rounded-3xl pt-0 pb-2 px-1"
+                  type="button"
+                  @click="toggleFlyout(order.id)">
+                  ...
+                </button>
+                <ListActionFlyout v-if="openFlyoutId === order.id" />
+              </div>
             </td>
           </tr>
         </tbody>

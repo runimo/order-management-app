@@ -4,6 +4,7 @@ import { useProductsStore } from '@/stores/products'
 import { storeToRefs } from 'pinia'
 import BaseButton from './BaseButton.vue'
 import BaseInput from './BaseInput.vue'
+import ListActionFlyout from './ListActionFlyout.vue'
 
 const productsStore = useProductsStore()
 const {
@@ -107,6 +108,15 @@ onMounted(() => {
       <p class="text-gray-700">
         Stock: {{ product.attributes.stock }}
       </p>
+      <div class="relative inline-block">
+        <button
+          class="hover:bg-violet-100 hover:text-violet-700 cursor-pointer font-semibold leading-normal rounded-3xl pt-0 pb-2 px-1"
+          type="button"
+          @click="toggleFlyout(product.id)">
+          ...
+        </button>
+        <ListActionFlyout v-if="openFlyoutId === product.id" />
+      </div>
     </div>
   </div>
 
@@ -114,14 +124,16 @@ onMounted(() => {
     <table class="min-w-full table-auto rounded-sm border-collapse border border-gray-300">
       <thead>
         <tr class="bg-gray-100 text-left">
-          <th class="p-2 border border-gray-300">
+          <th class="p-2 border-b border-t border-gray-300">
             Name
           </th>
-          <th class="p-2 border border-gray-300">
+          <th class="p-2 border-b border-t border-gray-300">
             Price
           </th>
-          <th class="p-2 border border-gray-300">
+          <th class="p-2 border-b border-t border-gray-300">
             Stock
+          </th>
+          <th class="p-2 border-b border-t border-gray-300">
           </th>
         </tr>
       </thead>
@@ -130,14 +142,25 @@ onMounted(() => {
           v-for="product in productsByCurrentUserCompany"
           :key="product.id"
           class="hover:bg-gray-50">
-          <td class="p-2 border border-gray-300">
+          <td class="p-2 border-b border-t border-gray-300">
             {{ product.attributes.name }}
           </td>
-          <td class="p-2 border border-gray-300">
+          <td class="p-2 border-b border-t border-gray-300">
             €{{ product.attributes.price }}
           </td>
-          <td class="p-2 border border-gray-300">
+          <td class="p-2 border-b border-t border-gray-300">
             {{ product.attributes.stock }}
+          </td>
+          <td class="p-2 border-b border-t border-gray-300">
+            <div class="relative inline-block">
+              <button
+                class="hover:bg-violet-100 hover:text-violet-700 cursor-pointer font-semibold leading-normal rounded-3xl pt-0 pb-2 px-1"
+                type="button"
+                @click="toggleFlyout(product.id)">
+                ...
+              </button>
+              <ListActionFlyout v-if="openFlyoutId === product.id" />
+            </div>
           </td>
         </tr>
       </tbody>
