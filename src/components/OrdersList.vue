@@ -17,6 +17,7 @@ const { currentUser } = userStore
 const ordersStore = useOrdersStore()
 const {
   createOrder,
+  deleteOrder,
   fetchOrders,
   resetOrderByType,
   updateOrder
@@ -154,6 +155,12 @@ const enableEditMode = ():void => {
 const disableEditMode = ():void => {
   isEdit.value = false
 }
+const handleDelete = (orderId: string): void => {
+  if (window.confirm('Are you sure you want to delete this order?')) {
+    deleteOrder(orderId)
+  }
+  toggleFlyout(orderId)
+}
 const handleEdit = (order):void => {
   setOrderInEdit(order)
   enableEditMode()
@@ -269,8 +276,10 @@ onMounted(() => {
       </div>
     </div>
 
-    <div class="block md:hidden space-y-4 mt-8">
-      <div v-if="!isEdit">
+    <div class="block md:hidden mt-8">
+      <div
+        v-if="!isEdit"
+        class="space-y-4">
         <div
           v-for="order in createdOrdersByCurrentUserCompany"
           :key="order.id"
@@ -288,6 +297,7 @@ onMounted(() => {
               </button>
               <ListActionFlyout
                 v-if="openFlyoutId === order.id"
+                @delete="handleDelete(order.id)"
                 @edit="handleEdit(order)" />
             </div>
           </div>
@@ -335,7 +345,7 @@ onMounted(() => {
       <div
         v-else
         class="flex justify-center space-y-4 mt-8">
-        <div class="max-w-full p-4 bg-white w-[80%] xl:w-[50%] rounded-xs shadow border border-gray-200">
+        <div class="max-w-full p-4 bg-white rounded-xs shadow border border-gray-200">
           <div class="flex justify-between">
             <h2 class="text-lg font-semibold text-gray-900 mb-4">
               Order #{{ orderInEdit.orderNumber }}
@@ -447,6 +457,7 @@ onMounted(() => {
                 </button>
                 <ListActionFlyout
                   v-if="openFlyoutId === order.id"
+                  @delete="handleDelete(order.id)"
                   @edit="handleEdit(order)" />
               </div>
             </td>

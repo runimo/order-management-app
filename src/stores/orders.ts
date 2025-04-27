@@ -67,6 +67,10 @@ export const useOrdersStore = defineStore('orders', {
         this.orders.unshift(newOrder)
       },
 
+      deleteOrder (orderId: string): void {
+        this.orders = this.orders.filter(order => order.id !== orderId)
+      },
+
       fetchOrders (): void {
         this.orders = response.data
       },
