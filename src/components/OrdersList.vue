@@ -270,66 +270,115 @@ onMounted(() => {
     </div>
 
     <div class="block md:hidden space-y-4 mt-8">
-      <div
-        v-for="order in createdOrdersByCurrentUserCompany"
-        :key="order.id"
-        class="p-4 bg-white rounded-xs shadow border border-gray-200">
-        <div class="flex justify-between">
-          <h2 class="text-lg font-semibold text-gray-900 ml-6 mb-4">
-            Order #{{ order.attributes.orderNumber }}
-          </h2>
-          <div class="relative inline-block">
-            <button
-              class="hover:bg-violet-100 hover:text-violet-700 cursor-pointer font-semibold leading-normal rounded-3xl pt-0 pb-2 px-1"
-              type="button"
-              @click="toggleFlyout(order.id)">
-              ...
-            </button>
-            <ListActionFlyout
-              v-if="openFlyoutId === order.id"
-              @edit="handleEdit(order)" />
+      <div v-if="!isEdit">
+        <div
+          v-for="order in createdOrdersByCurrentUserCompany"
+          :key="order.id"
+          class="p-4 bg-white rounded-xs shadow border border-gray-200">
+          <div class="flex justify-between">
+            <h2 class="text-lg font-semibold text-gray-900 ml-6 mb-4">
+              Order #{{ order.attributes.orderNumber }}
+            </h2>
+            <div class="relative inline-block">
+              <button
+                class="hover:bg-violet-100 hover:text-violet-700 cursor-pointer font-semibold leading-normal rounded-3xl pt-0 pb-2 px-1"
+                type="button"
+                @click="toggleFlyout(order.id)">
+                ...
+              </button>
+              <ListActionFlyout
+                v-if="openFlyoutId === order.id"
+                @edit="handleEdit(order)" />
+            </div>
           </div>
-        </div>
 
-        <div class="ml-6 mr-6">
-          <div class="grid gap-1">
-            <div class="flex justify-between">
-              <span class="text-gray-500">Status</span>
-              <span class="font-semibold text-gray-800">{{ order.attributes.status }}</span>
+          <div class="ml-6 mr-6">
+            <div class="grid gap-1">
+              <div class="flex justify-between">
+                <span class="text-gray-500">Status</span>
+                <span class="font-semibold text-gray-800">{{ order.attributes.status }}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-500">Created at</span>
+                <span>{{ formatDate(order.attributes.createdAt) }}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-500">Supplier</span>
+                <span>{{ companiesStore.companies.find(company => company.id === order.relationships.supplier.data.id).attributes.name }}</span>
+              </div>
             </div>
-            <div class="flex justify-between">
-              <span class="text-gray-500">Created at</span>
-              <span>{{ formatDate(order.attributes.createdAt) }}</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-gray-500">Supplier</span>
-              <span>{{ companiesStore.companies.find(company => company.id === order.relationships.supplier.data.id).attributes.name }}</span>
-            </div>
-          </div>
  
-          <hr class="my-4 text-gray-300">
+            <hr class="my-4 text-gray-300">
 
-          <div class="mb-2">
-            <div class="text-gray-500 mb-1">Products</div>
-            <ul class="space-y-1">
-              <li
-                v-for="product in order.attributes.quantities"
-                class="flex justify-between">
-                <span class="text-gray-800">{{ productsStore.productById(product.productId)?.attributes.name }}</span>
-                <span>{{ product.count }} x {{ productsStore.productById(product.productId)?.attributes.price }} €</span>
-              </li>
-            </ul>
-          </div>
+            <div class="mb-2">
+              <div class="text-gray-500 mb-1">Products</div>
+              <ul class="space-y-1">
+                <li
+                  v-for="product in order.attributes.quantities"
+                  class="flex justify-between">
+                  <span class="text-gray-800">{{ productsStore.productById(product.productId)?.attributes.name }}</span>
+                  <span>{{ product.count }} x {{ productsStore.productById(product.productId)?.attributes.price }} €</span>
+                </li>
+              </ul>
+            </div>
 
-          <hr class="my-4 text-gray-300">
+            <hr class="my-4 text-gray-300">
 
-          <div class="flex justify-between font-semibold">
-            <span>Total</span>
-            <span>{{ order.attributes.totalPrice }} €</span>
+            <div class="flex justify-between font-semibold">
+              <span>Total</span>
+              <span>{{ order.attributes.totalPrice }} €</span>
+            </div>
           </div>
         </div>
       </div>
 
+      <div
+        v-else
+        class="flex justify-center space-y-4 mt-8">
+        <div class="max-w-full p-4 bg-white w-[80%] xl:w-[50%] rounded-xs shadow border border-gray-200">
+          <div class="flex justify-between">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">
+              Order #{{ orderInEdit.orderNumber }}
+            </h2>
+          </div>
+
+          <div class="grid gap-1">
+            <div class="flex justify-between">
+              <span class="text-gray-500">Status</span>
+              <span class="font-semibold text-gray-800">{{ orderInEdit.status }}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-500">Created at</span>
+              <span>{{ formatDate(orderInEdit.createdAt) }}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-500">Supplier</span>
+              <span>{{ companiesStore.companies.find(company => company.id === orderInEdit.supplierId).attributes.name }}</span>
+            </div>
+          </div>
+
+          <hr class="mt-4 text-gray-300">
+
+          <ProductQuantitySelector
+            :available-products="availableProducts"
+            :order="orderInEdit"
+            order-type="orderBeingEdited" />
+
+          <div class="flex flex-col sm:flex-row justify-end w-full gap-2 mt-6">
+            <BaseButton
+              class="w-full sm:w-[30%]"
+              variant="secondary"
+              @click="cancelEdit">
+              Cancel
+            </BaseButton>
+            <BaseButton
+              class="w-full sm:w-[30%]"
+              @click="handleSaveEdit">
+              Save
+            </BaseButton>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="hidden md:block mt-8">
@@ -407,7 +456,7 @@ onMounted(() => {
 
       <div
         v-else
-        class="hidden md:flex md:justify-center space-y-4 mt-8">
+        class="flex justify-center space-y-4 mt-8">
         <div class="max-w-full p-4 bg-white w-[80%] xl:w-[50%] rounded-xs shadow border border-gray-200">
           <div class="flex justify-between">
             <h2 class="text-lg font-semibold text-gray-900 mb-4">
