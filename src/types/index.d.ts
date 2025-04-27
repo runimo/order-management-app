@@ -9,26 +9,17 @@ export interface Order {
       productId: string
       count: number
     }[]
-    totalPrice: string; // e.g. "34,82" 
+    totalPrice: string // e.g. "34,82" 
   }
   relationships: {
     products: {
-      data: {
-        type: 'Product'
-        id: string
-      }[];
+      data: ProductRelationship[]
     }
     supplier: {
-      data: {
-        type: 'Company'
-        id: string
-      }
+      data: CompanyRelationship
     }
     customer: {
-      data: {
-        type: 'Company'
-        id: string
-      }
+      data: CompanyRelationship
     }
   }
 }
@@ -74,6 +65,11 @@ type ProductRelationship = {
 type OrderRelationship = {
   id: string
   type: OrderResourceType
+}
+
+type CompanyRelationship = {
+  id: string
+  type: CompanyResourceType
 }
 
 
