@@ -10,7 +10,8 @@ const productsStore = useProductsStore()
 const {
   createProduct,
   deleteProduct,
-  fetchProducts
+  fetchProducts,
+  updateProduct
 } = productsStore
 const { productsByCurrentUserCompany } = storeToRefs(productsStore)
 
@@ -18,30 +19,48 @@ const isCreateFormOpen = ref(false)
 const toggleCreateForm = () => {
   isCreateFormOpen.value = !isCreateFormOpen.value
 }
-
 const newProduct = ref({
   name: '',
   price: null,
   stock: null
 })
-
 const cancel = (): void => {
   toggleCreateForm()
   reset()
 }
-
 const handleSave = (product): void => {
   newProduct.value = product
   createProduct(newProduct.value)
   toggleCreateForm()
   reset()
 }
-
 const reset = (): void => {
   newProduct.value = {
     name: '',
     price: null,
     stock: null
+  }
+}
+
+const isEdit = ref(false)
+const enableEditMode = (): void => {
+  isEdit.value = true
+}
+const disableEditMode = (): void => {
+  isEdit.value = false
+}
+const productBeingEdited = ref(null)
+const setProductBeingEdited = (product) => {
+  const { id } = product
+  productBeingEdited.value = {
+    id,
+    ...product.attributes
+  }
+}
+const updateProductBeingEdited = (product) => {
+  productBeingEdited.value = {
+    id: productBeingEdited.value.id,
+    ...product
   }
 }
 
@@ -57,6 +76,17 @@ const handleDelete = (productId: string): void => {
   toggleFlyout(productId)
 }
 
+const handleEdit = (product): void => {
+  enableEditMode()
+  setProductBeingEdited(product)
+  toggleFlyout(product.id)
+}
+const handleSaveEdit = (product): void => {
+  updateProductBeingEdited(product)
+  updateProduct(productBeingEdited.value)
+  disableEditMode()
+}
+
 onMounted(() => {
   fetchProducts()
 })
@@ -65,7 +95,7 @@ onMounted(() => {
 <template>
   <div class="flex justify-center sm:justify-end">
     <BaseButton
-      v-if="!isCreateFormOpen"
+      v-if="!isCreateFormOpen && !isEdit"
       class="w-[90%] sm:w-[50%] md:w-[25%]"
       @click="toggleCreateForm">
       Add Product
@@ -76,34 +106,45 @@ onMounted(() => {
     @cancel="cancel"
     @save="(product) => handleSave(product)" />
   
-  <div class="block md:hidden space-y-4 mt-8">
+  <div class="block md:hidden mt-8">
     <div
-      v-for="product in productsByCurrentUserCompany"
-      :key="product.id"
-      class="p-4 bg-white rounded-xs shadow border border-gray-200">
-      <div class="flex justify-between">
-        <h2 class="text-lg font-semibold text-gray-900 mb-1">
-          {{ product.attributes.name }}
-        </h2>
-        <div class="relative inline-block">
-          <button
-            class="hover:bg-violet-100 hover:text-violet-700 cursor-pointer font-semibold leading-normal rounded-3xl pt-0 pb-2 px-1"
-            type="button"
-            @click="toggleFlyout(product.id)">
-            ...
-          </button>
-          <ListActionFlyout
-            v-if="openFlyoutId === product.id"
-            @delete="handleDelete(product.id)" />
+      v-if="!isEdit"
+      class="space-y-4">
+      <div
+        v-for="product in productsByCurrentUserCompany"
+        :key="product.id"
+        class="p-4 bg-white rounded-xs shadow border border-gray-200">
+        <div class="flex justify-between">
+          <h2 class="text-lg font-semibold text-gray-900 mb-1">
+            {{ product.attributes.name }}
+          </h2>
+          <div class="relative inline-block">
+            <button
+              class="hover:bg-violet-100 hover:text-violet-700 cursor-pointer font-semibold leading-normal rounded-3xl pt-0 pb-2 px-1"
+              type="button"
+              @click="toggleFlyout(product.id)">
+              ...
+            </button>
+            <ListActionFlyout
+              v-if="openFlyoutId === product.id"
+              @delete="handleDelete(product.id)"
+              @edit="handleEdit(product)" />
+          </div>
         </div>
+        <p class="text-gray-700">
+          Price: €{{ product.attributes.price }}
+        </p>
+        <p class="text-gray-700">
+          Stock: {{ product.attributes.stock }}
+        </p>
       </div>
-      <p class="text-gray-700">
-        Price: €{{ product.attributes.price }}
-      </p>
-      <p class="text-gray-700">
-        Stock: {{ product.attributes.stock }}
-      </p>
     </div>
+    <ProductForm
+      v-else
+      :product="productBeingEdited"
+      @cancel="disableEditMode"
+      @save="product => handleSaveEdit(product)" />
+
   </div>
 
   <div class="hidden md:block mt-8">

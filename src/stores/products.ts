@@ -38,8 +38,34 @@ export const useProductsStore = defineStore('products', {
         this.products = this.products.filter(product => product.id !== productId)
       },
 
-      fetchProducts () {
+      fetchProducts (): void {
         this.products = response.data
+      },
+
+      updateProduct (product): void {
+        const productToUpdate = this.products.find(el => el.id === product.id)
+        const { id, name, price, stock } = product
+        
+        if (productToUpdate) {
+          const { relationships, type } = productToUpdate
+          const updatedProduct = {
+            id,
+            attributes: {
+              name,
+              price,
+              stock
+            },
+            relationships,
+            type
+          }
+
+          console.log('updatedProduct', updatedProduct)
+
+          const index = this.products.findIndex(el => el.id === product.id)
+          if (index !== -1) {
+            this.products[index] = updatedProduct
+          }
+        }
       }
     },
 
