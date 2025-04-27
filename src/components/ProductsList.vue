@@ -3,8 +3,8 @@ import { onMounted, ref } from 'vue'
 import { useProductsStore } from '@/stores/products'
 import { storeToRefs } from 'pinia'
 import BaseButton from './BaseButton.vue'
-import BaseInput from './BaseInput.vue'
 import ListActionFlyout from './ListActionFlyout.vue'
+import ProductForm from './ProductForm.vue'
 
 const productsStore = useProductsStore()
 const {
@@ -30,7 +30,8 @@ const cancel = (): void => {
   reset()
 }
 
-const handleSave = (): void => {
+const handleSave = (product): void => {
+  newProduct.value = product
   createProduct(newProduct.value)
   toggleCreateForm()
   reset()
@@ -70,42 +71,10 @@ onMounted(() => {
       Add Product
     </BaseButton>
   </div>
-  <div
+  <ProductForm
     v-if="isCreateFormOpen"
-    class="flex justify-center">
-    <div
-      class="w-[90%] md:w-[50%] md:justify-end rounded-xs border border-gray-300 mt-4 p-4">
-      <BaseInput
-        class="mb-2"
-        id="name"
-        label="Name"
-        v-model="newProduct.name" />
-      <BaseInput
-        class="mb-2"
-        id="price"
-        label="Price (€)"
-        v-model="newProduct.price" />
-      <BaseInput
-        class="mb-2"
-        id="stock"
-        label="Stock"
-        v-model="newProduct.stock" />
-
-      <div class="flex flex-col sm:flex-row justify-end w-full gap-2 mt-6">
-        <BaseButton
-          class="w-full sm:w-[30%]"
-          variant="secondary"
-          @click="cancel">
-          Cancel
-        </BaseButton>
-        <BaseButton
-          class="w-full sm:w-[30%]"
-          @click="handleSave">
-          Save
-        </BaseButton>
-      </div>
-    </div>
-  </div>
+    @cancel="cancel"
+    @save="(product) => handleSave(product)" />
   
   <div class="block md:hidden space-y-4 mt-8">
     <div
