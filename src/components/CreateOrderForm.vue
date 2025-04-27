@@ -18,7 +18,6 @@
   } = storeToRefs(ordersStore)
 
   const companiesStore = useCompaniesStore()
-  const { fetchCompanies } = companiesStore 
   const { availableCompanies } = storeToRefs(companiesStore)
 
   const emit = defineEmits([
@@ -45,7 +44,7 @@
     resetCreateForm()
   }
   const handleBack = (): void => {
-    if (currentStep === 2) {
+    if (currentStep.value === 2) {
       newOrder.value = {
         ...newOrder.value,
         products: [],

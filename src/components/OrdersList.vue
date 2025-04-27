@@ -1,105 +1,35 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useCompaniesStore } from '@/stores/companies'
 import { useOrdersStore } from '@/stores/orders'
 import { useProductsStore } from '@/stores/products'
-import { useUserStore } from '@/stores/user'
 import BaseButton from './BaseButton.vue'
-import BaseSelect from './BaseSelect.vue'
 import CreateOrderForm from './CreateOrderForm.vue'
+import EditOrderForm from './EditOrderForm.vue'
 import dayjs from 'dayjs'
 import ListActionFlyout from './ListActionFlyout.vue'
-import ProductQuantitySelector from './ProductQuantitySelector.vue'
 import StatusBadge from './StatusBadge.vue'
-
-const userStore = useUserStore()
-const { currentUser } = userStore
 
 const ordersStore = useOrdersStore()
 const {
   deleteOrder,
-  fetchOrders,
-  resetOrderByType,
-  updateOrder
+  fetchOrders
 } = ordersStore
 const {
-  createdOrdersByCurrentUserCompany,
-  orderBeingCreated,
-  orderBeingEdited
+  createdOrdersByCurrentUserCompany
 } = storeToRefs(ordersStore)
-const newOrder = ref({
-  supplierId: '',
-  products: [],
-  totalPrice: 0
-})
-const orderInEdit = ref(null)
-const setOrderInEdit = (order) => {
-  const {
-    createdAt,
-    orderNumber,
-    quantities,
-    status,
-    totalPrice
-  } = order.attributes
-  const products = quantities.map(product => {
-    const { productId, count } = product
-    const fullProduct = productsStore.productById(productId)
-    const { name, price } = fullProduct.attributes
 
-    return {
-      id: productId,
-      count,
-      name,
-      price
-    }
-  })
-  const transformedOrder = {
-    id: order.id,
-    createdAt,
-    orderNumber,
-    products,
-    status,
-    supplierId: order.relationships.supplier.data.id,
-    totalPrice
-  }
-
-  orderInEdit.value = transformedOrder
+const orderToEdit = ref(null)
+const setOrderToEdit = (order) => {
+  orderToEdit.value = order
 }
-const currentOrderType = computed(() => {
-  let orderType = ''
-
-  if (isEdit.value) {
-    orderType = 'orderBeingEdited'
-  } else if (isCreateFormOpen.value) {
-    orderType = 'orderBeingCreated'
-  }
-
-  return orderType
-})
-const currentOrder = computed(() => {
-  switch (currentOrderType.value) {
-    case 'orderBeingCreated':
-      return orderBeingCreated.value
-    case 'orderBeingEdited':
-      return orderBeingEdited.value
-    default:
-      console.warn(`Unknown orderType ${currentOrderType.value}`)
-      return null
-  }
-})
 
 const companiesStore = useCompaniesStore()
 const { fetchCompanies } = companiesStore 
-const { availableCompanies } = storeToRefs(companiesStore)
 
 const productsStore = useProductsStore()
 const { fetchProducts } = productsStore
-const availableProducts = computed(() => {
-  const supplierId = orderInEdit.value.supplierId
-
-  return supplierId ? productsStore.productsByCompanyId(supplierId) : []
-})
 
 const formatDate = (isoString: string) => {
   return dayjs(isoString).format('D MMM YYYY, HH:mm')
@@ -129,17 +59,9 @@ const handleDelete = (orderId: string): void => {
   toggleFlyout(orderId)
 }
 const handleEdit = (order):void => {
-  setOrderInEdit(order)
+  setOrderToEdit(order)
   enableEditMode()
   toggleFlyout(order.id)
-}
-const cancelEdit = ():void => {
-  disableEditMode()
-}
-const handleSaveEdit = ():void => {
-  disableEditMode()
-  updateOrder()
-  resetOrderByType('orderBeingEdited')
 }
 
 onMounted(() => {
@@ -216,6 +138,7 @@ onMounted(() => {
               <ul class="space-y-1">
                 <li
                   v-for="product in order.attributes.quantities"
+                  :key="`product:${product.productId}`"
                   class="flex justify-between">
                   <span class="text-gray-800">{{ productsStore.productById(product.productId)?.attributes.name }}</span>
                   <span>{{ product.count }} x {{ productsStore.productById(product.productId)?.attributes.price }} €</span>
@@ -235,50 +158,10 @@ onMounted(() => {
 
       <div
         v-else
-        class="flex justify-center space-y-4 mt-8">
-        <div class="max-w-full p-4 bg-white rounded-xs shadow border border-gray-200">
-          <div class="flex justify-between">
-            <h2 class="text-lg font-semibold text-gray-900 mb-4">
-              Order #{{ orderInEdit.orderNumber }}
-            </h2>
-          </div>
-
-          <div class="grid gap-1">
-            <div class="flex justify-between">
-              <span class="text-gray-500">Status</span>
-              <StatusBadge :status="orderInEdit.status" />
-            </div>
-            <div class="flex justify-between">
-              <span class="text-gray-500">Created at</span>
-              <span>{{ formatDate(orderInEdit.createdAt) }}</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-gray-500">Supplier</span>
-              <span>{{ companiesStore.companies.find(company => company.id === orderInEdit.supplierId).attributes.name }}</span>
-            </div>
-          </div>
-
-          <hr class="mt-4 text-gray-300">
-
-          <ProductQuantitySelector
-            :available-products="availableProducts"
-            :order="orderInEdit"
-            order-type="orderBeingEdited" />
-
-          <div class="flex flex-col sm:flex-row justify-end w-full gap-2 mt-6">
-            <BaseButton
-              class="w-full sm:w-[30%]"
-              variant="secondary"
-              @click="cancelEdit">
-              Cancel
-            </BaseButton>
-            <BaseButton
-              class="w-full sm:w-[30%]"
-              @click="handleSaveEdit">
-              Save
-            </BaseButton>
-          </div>
-        </div>
+        class="flex justify-center">
+        <EditOrderForm
+        :order="orderToEdit"
+        @close="disableEditMode" />
       </div>
     </div>
 
@@ -329,7 +212,9 @@ onMounted(() => {
             </td>
             <td class="py-2 border-b border-t border-gray-300">
               <ul class="space-y-1">
-                <li v-for="product in order.attributes.quantities">
+                <li
+                  v-for="product in order.attributes.quantities"
+                  :key="`product:${product.productId}`">
                   <div class="font-medium">{{ productsStore.productById(product.productId)?.attributes.name }}</div>
                   <div class="text-sm text-gray-600">{{ product.count }} x {{ productsStore.productById(product.productId)?.attributes.price }} €</div>
                 </li>
@@ -360,50 +245,11 @@ onMounted(() => {
 
       <div
         v-else
-        class="flex justify-center space-y-4 mt-8">
-        <div class="max-w-full p-4 bg-white w-[80%] xl:w-[50%] rounded-xs shadow border border-gray-200">
-          <div class="flex justify-between">
-            <h2 class="text-lg font-semibold text-gray-900 mb-4">
-              Order #{{ orderInEdit.orderNumber }}
-            </h2>
-          </div>
-
-          <div class="grid gap-1">
-            <div class="flex justify-between">
-              <span class="text-gray-500">Status</span>
-              <StatusBadge :status="orderInEdit.status" />
-            </div>
-            <div class="flex justify-between">
-              <span class="text-gray-500">Created at</span>
-              <span>{{ formatDate(orderInEdit.createdAt) }}</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-gray-500">Supplier</span>
-              <span>{{ companiesStore.companies.find(company => company.id === orderInEdit.supplierId).attributes.name }}</span>
-            </div>
-          </div>
-
-          <hr class="mt-4 text-gray-300">
-
-          <ProductQuantitySelector
-            :available-products="availableProducts"
-            :order="orderInEdit"
-            order-type="orderBeingEdited" />
-
-          <div class="flex flex-col sm:flex-row justify-end w-full gap-2 mt-6">
-            <BaseButton
-              class="w-full sm:w-[30%]"
-              variant="secondary"
-              @click="cancelEdit">
-              Cancel
-            </BaseButton>
-            <BaseButton
-              class="w-full sm:w-[30%]"
-              @click="handleSaveEdit">
-              Save
-            </BaseButton>
-          </div>
-        </div>
+        class="flex justify-center">
+        <EditOrderForm
+          class="sm:w-[80%] lg:w-[50%]"
+          :order="orderToEdit"
+          @close="disableEditMode" />
       </div>
     </div>
   </div>

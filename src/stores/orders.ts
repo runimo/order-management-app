@@ -110,7 +110,7 @@ export const useOrdersStore = defineStore('orders', {
 
       updateOrder (): void {
         const orderId = this.orderBeingEdited.id
-        let order = this.orders.find(order => order.id === orderId)
+        const order = this.orders.find(order => order.id === orderId)
 
         if (order) {
           let products = this.orderBeingEdited.products

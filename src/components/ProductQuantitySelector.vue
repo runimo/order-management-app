@@ -47,11 +47,12 @@
         return orderBeingEdited.value
       default:
         console.warn(`Unknown orderType ${orderType}`)
+        return null
     }
   })
 
   const handleDecrease = (productId: string): void => {
-    const currentProduct = order.products.find(product => product.id === productId)
+    const currentProduct = currentOrder.value.products.find(product => product.id === productId)
     const fullCurrentProduct = availableProducts.find(product => product.id === productId)
     const price = fullCurrentProduct?.attributes.price || 0
   
@@ -69,7 +70,7 @@
     }
   }
   const handleIncrease = (productId): void => {
-    const currentProduct = order.products.find(product => product.id === productId)
+    const currentProduct = currentOrder.value.products.find(product => product.id === productId)
     const fullCurrentProduct = availableProducts.find(product => product.id === productId)
     const price = fullCurrentProduct?.attributes.price || 0
     const name = fullCurrentProduct?.attributes.name || ''
@@ -83,6 +84,7 @@
         price,
         name
       }
+      console.log('new product', product)
       addProductToOrder({ orderType, product })
     }
 
