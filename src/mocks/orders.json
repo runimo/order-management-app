@@ -6,7 +6,7 @@
         "attributes": {
           "createdAt": "2025-04-01T15:48:36Z",
           "orderNumber": "001",
-          "status": "delivered",
+          "status": "pending",
           "quantities": [
             {
               "productId": "product-005",
@@ -239,7 +239,7 @@
         "attributes": {
           "createdAt": "2025-04-06T14:36:04Z",
           "orderNumber": "006",
-          "status": "shipped",
+          "status": "processing",
           "quantities": [
             {
               "productId": "product-005",
