@@ -1,6 +1,4 @@
-<script setup>
-  import { ref, onMounted, onBeforeUnmount } from 'vue'
-
+<script setup lang="ts">
   defineProps({
     withTrigger: {
       type: Boolean,
