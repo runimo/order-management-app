@@ -7,10 +7,11 @@
   import dayjs from 'dayjs'
   import ProductQuantitySelector from './ProductQuantitySelector.vue'
   import StatusBadge from './StatusBadge.vue'
+  import type { Order } from '@/types/index.d.ts'
 
   const { order } = defineProps({
     order: {
-      type: Object,
+      type: Object as PropType<Order>,
       required: true
     }
   })
@@ -34,7 +35,7 @@
     return supplierId ? productsStore.productsByCompanyId(supplierId) : []
   })
 
-  const orderToEdit = ref(null)
+  const orderToEdit = ref<Order | null>(null)
   const setOrderToEdit = () => {
     const {
       createdAt,
@@ -72,7 +73,7 @@
     return dayjs(isoString).format('D MMM YYYY, HH:mm')
   }
 
-  const cancel = () => {
+  const cancel = (): void => {
     emit('close')
   }
   const handleSaveEdit = ():void => {

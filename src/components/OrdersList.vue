@@ -10,6 +10,7 @@ import EditOrderForm from './EditOrderForm.vue'
 import dayjs from 'dayjs'
 import ListActionFlyout from './ListActionFlyout.vue'
 import StatusBadge from './StatusBadge.vue'
+import type { Order } from '@/types/index.d.ts'
 
 const ordersStore = useOrdersStore()
 const {
@@ -21,7 +22,7 @@ const {
 } = storeToRefs(ordersStore)
 
 const orderToEdit = ref(null)
-const setOrderToEdit = (order) => {
+const setOrderToEdit = (order: Order) => {
   orderToEdit.value = order
 }
 
@@ -35,7 +36,7 @@ const formatDate = (isoString: string) => {
   return dayjs(isoString).format('D MMM YYYY, HH:mm')
 }
 
-const isCreateFormOpen = ref(false)
+const isCreateFormOpen = ref<Boolean>(false)
 const toggleCreateForm = (): void => {
   isCreateFormOpen.value = !isCreateFormOpen.value
 }
@@ -45,7 +46,7 @@ const toggleFlyout = (orderId: string): void => {
   openFlyoutId.value = openFlyoutId.value === orderId ? null : orderId
 }
 
-const isEdit = ref(false)
+const isEdit = ref<Boolean>(false)
 const enableEditMode = ():void => {
   isEdit.value = true
 }
@@ -58,7 +59,7 @@ const handleDelete = (orderId: string): void => {
   }
   toggleFlyout(orderId)
 }
-const handleEdit = (order):void => {
+const handleEdit = (order: Order):void => {
   setOrderToEdit(order)
   enableEditMode()
   toggleFlyout(order.id)
@@ -85,7 +86,7 @@ onMounted(() => {
 
     <CreateOrderForm
       v-if="isCreateFormOpen"
-      @close="toggleCreateForm()" />
+      @close="toggleCreateForm" />
 
     <div class="block md:hidden mt-8">
       <div

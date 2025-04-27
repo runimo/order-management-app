@@ -1,17 +1,27 @@
 import { defineStore } from 'pinia'
 import { useUserStore } from './user'
 import response from '@/mocks/orders.json'
+import type {
+  CompanyResourceType,
+  Order,
+  OrderDraft,
+  OrderResourceType,
+  OrderStatus,
+  OrderTransformedForEdit,
+  OrderType,
+  ProductResourceType
+} from '@/types/index.d.ts'
 
 export const useOrdersStore = defineStore('orders', {
     state: () => ({
-      orderBeingCreated: null,
-      orderBeingEdited: null,
-      orders: []
+      orderBeingCreated: null as OrderDraft | null,
+      orderBeingEdited: null as OrderTransformedForEdit | null,
+      orders: [] as Order[]
     }),
 
     actions: {
-      addProductToOrder ({ orderType, product }: { orderType: 'orderBeingCreated' | 'orderBeingEdited', product: { id: string, count: number, price: number, name: string }}): void {
-        const orderToUpdate = this[orderType]
+      addProductToOrder ({ orderType, product }: { orderType: OrderType, product: { id: string, count: number, price: number, name: string }}): void {
+        const orderToUpdate = this[orderType] as OrderTransformedForEdit | OrderDraft | null
         
         if (orderToUpdate) {
           orderToUpdate.products.push(product)
@@ -21,7 +31,7 @@ export const useOrdersStore = defineStore('orders', {
       createOrder (): void {
         const userStore = useUserStore()
         const { currentUser } = userStore
-        const quantities = this.orderBeingCreated?.products.map(({ id, count }: { id: string, count: number }) => ({ productId: id, count }))
+        const quantities = this.orderBeingCreated?.products.map(({ id, count }: { id: string, count: number }) => ({ productId: id, count })) || []
         const mostRecentOrder = this.orders.reduce((max, order) => {
           return order.attributes.orderNumber > max.attributes.orderNumber
           ? order
@@ -35,18 +45,18 @@ export const useOrdersStore = defineStore('orders', {
 
         const relationships = {
           products: {
-            data: this.orderBeingCreated.products.map(({ id }: { id: string}) => ({ id, type: 'Product' }))
+            data: this.orderBeingCreated?.products.map(({ id }: { id: string}) => ({ id, type: 'Product' as ProductResourceType })) || []
           },
           supplier: {
             data: {
-              id: this.orderBeingCreated.supplierId,
-              type: 'Company'
+              id: this.orderBeingCreated?.supplierId || '',
+              type: 'Company' as CompanyResourceType
             }
           },
           customer: {
             data: {
               id: currentUser.company.id,
-              type: 'Company'
+              type: 'Company' as CompanyResourceType
             }
           }
         }
@@ -54,14 +64,14 @@ export const useOrdersStore = defineStore('orders', {
         const newOrder = {
           id,
           attributes: {
-            createdAt: new Date(),
+            createdAt: new Date().toString(),
             orderNumber: newOrderNumber,
-            status: 'pending',
+            status: 'pending' as OrderStatus,
             quantities,
-            totalPrice: this.orderBeingCreated.totalPrice
+            totalPrice: this.orderBeingCreated?.totalPrice || '0'
           },
           relationships,
-          type: 'Order'
+          type: 'Order' as OrderResourceType
         }
 
         this.orders.unshift(newOrder)
@@ -72,10 +82,10 @@ export const useOrdersStore = defineStore('orders', {
       },
 
       fetchOrders (): void {
-        this.orders = response.data
+        this.orders = response.data as Order[]
       },
 
-      decreaseProductQuantity ({ orderType, productId }: { orderType: 'orderBeingCreated' | 'orderBeingEdited', productId: string}): void {
+      decreaseProductQuantity ({ orderType, productId }: { orderType: OrderType, productId: string}): void {
         const orderToUpdate = this[orderType]
         const productToUpdate = orderToUpdate?.products.find(product => product.id === productId)
 
@@ -84,7 +94,7 @@ export const useOrdersStore = defineStore('orders', {
         }
       },
 
-      increaseProductQuantity ({ orderType, productId }: { orderType: 'orderBeingCreated' | 'orderBeingEdited', productId: string }): void {
+      increaseProductQuantity ({ orderType, productId }: { orderType: OrderType, productId: string }): void {
         const productToUpdate = this[orderType]?.products.find(product => product.id === productId)
         
         if (productToUpdate) {
@@ -92,7 +102,7 @@ export const useOrdersStore = defineStore('orders', {
         }
       },
 
-      removeProductFromOrder ({ orderType, productId }: { orderType: 'orderBeingCreated' | 'orderBeingEdited', productId: string }): void {
+      removeProductFromOrder ({ orderType, productId }: { orderType: OrderType, productId: string }): void {
         const orderToUpdate = this[orderType]
 
         if (orderToUpdate) {
@@ -100,39 +110,43 @@ export const useOrdersStore = defineStore('orders', {
         }
       },
 
-      resetOrderByType (orderType: 'orderBeingCreated' | 'orderBeingEdited'): void {
+      resetOrderByType (orderType: OrderType): void {
         this[orderType] = null
       },
 
-      setOrderByType ({ orderType, order }): void {
-        this[orderType] = order
+      setOrderByType ({ orderType, order }: { orderType: OrderType, order: OrderTransformedForEdit | OrderDraft }): void {
+        if (orderType === 'orderBeingEdited') {
+            this.orderBeingEdited = order as OrderTransformedForEdit
+        }
+        if (orderType === 'orderBeingCreated') {
+            this.orderBeingCreated = order as OrderDraft
+        }
       },
 
       updateOrder (): void {
-        const orderId = this.orderBeingEdited.id
+        const orderId = this.orderBeingEdited?.id
         const order = this.orders.find(order => order.id === orderId)
 
         if (order) {
-          let products = this.orderBeingEdited.products
-          const quantities = products
-            .map(product => ({ productId: product.id, count: product.count }))
-            .filter(quantity => quantity.count > 0)
-          const updatedProductIds = quantities.map(quantity => quantity.productId)
-          products = products
-            .filter(product => updatedProductIds.includes(product.id))
-            .map(product => ({ id: product.id, type: 'Product'}))
+          let products = this.orderBeingEdited?.products
+          const quantities = products?.map(product => ({ productId: product.id, count: product.count })).filter(quantity => quantity.count > 0)
+          const updatedProductIds = quantities?.map(quantity => quantity.productId)
+          const transformedProducts = {
+            data: products?.filter(product => updatedProductIds?.includes(product.id)).map(product => ({ id: product.id, type: 'Product'}))
+          }
           const deTransformedOrder = {
-            id: this.orderBeingEdited.id,
+            id: this.orderBeingEdited?.id,
             attributes: {
               ...order.attributes,
               quantities,
-              totalPrice: this.orderBeingEdited.totalPrice
+              totalPrice: this.orderBeingEdited?.totalPrice
             },
             relationships: {
               ...order.relationships,
-              products
-            }
-          }
+              products: transformedProducts
+            },
+            type: 'Order'
+          } as Order
 
           const index = this.orders.findIndex(order => order.id === orderId)
           if (index !== -1) {
@@ -141,7 +155,7 @@ export const useOrdersStore = defineStore('orders', {
         }
       },
 
-      updateTotalPrice ({ orderType, amount, operation }: { orderType: 'orderBeingCreated' | 'orderBeingEdited', amount: string, operation: 'decrease' | 'increase' }): void {
+      updateTotalPrice ({ orderType, amount, operation }: { orderType: OrderType, amount: string, operation: 'decrease' | 'increase' }): void {
         const orderToUpdate = this[orderType]
 
         if (orderToUpdate) {
@@ -172,7 +186,7 @@ export const useOrdersStore = defineStore('orders', {
     },
 
     getters: {
-      createdOrdersByCurrentUserCompany(state) {
+      createdOrdersByCurrentUserCompany (state): Order[] {
         const userStore = useUserStore()
   
         if (!userStore.currentUser?.company?.id) {
