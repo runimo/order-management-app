@@ -10,6 +10,7 @@ import BaseSelect from './BaseSelect.vue'
 import dayjs from 'dayjs'
 import ListActionFlyout from './ListActionFlyout.vue'
 import ProductQuantitySelector from './ProductQuantitySelector.vue'
+import StatusBadge from './StatusBadge.vue'
 
 const userStore = useUserStore()
 const { currentUser } = userStore
@@ -366,7 +367,7 @@ onMounted(() => {
             <div class="grid gap-1">
               <div class="flex justify-between">
                 <span class="text-gray-500">Status</span>
-                <span class="font-semibold text-gray-800">{{ order.attributes.status }}</span>
+                <StatusBadge :status="order.attributes.status" />
               </div>
               <div class="flex justify-between">
                 <span class="text-gray-500">Created at</span>
@@ -415,7 +416,7 @@ onMounted(() => {
           <div class="grid gap-1">
             <div class="flex justify-between">
               <span class="text-gray-500">Status</span>
-              <span class="font-semibold text-gray-800">{{ orderInEdit.status }}</span>
+              <StatusBadge :status="orderInEdit.status" />
             </div>
             <div class="flex justify-between">
               <span class="text-gray-500">Created at</span>
@@ -491,7 +492,7 @@ onMounted(() => {
               {{ formatDate(order.attributes.createdAt) }}
             </td>
             <td class="p-2 border-b border-t border-gray-300">
-              {{ order.attributes.status }}
+              <StatusBadge :status="order.attributes.status" />
             </td>
             <td class="p-2 border-b border-t border-gray-300">
               {{ companiesStore.companies.find(company => company.id === order.relationships.supplier.data.id).attributes.name }}
@@ -540,7 +541,7 @@ onMounted(() => {
           <div class="grid gap-1">
             <div class="flex justify-between">
               <span class="text-gray-500">Status</span>
-              <span class="font-semibold text-gray-800">{{ orderInEdit.status }}</span>
+              <StatusBadge :status="orderInEdit.status" />
             </div>
             <div class="flex justify-between">
               <span class="text-gray-500">Created at</span>
