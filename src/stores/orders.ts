@@ -128,7 +128,7 @@ export const useOrdersStore = defineStore('orders', {
         const order = this.orders.find(order => order.id === orderId)
 
         if (order) {
-          let products = this.orderBeingEdited?.products
+          const products = this.orderBeingEdited?.products
           const quantities = products?.map(product => ({ productId: product.id, count: product.count })).filter(quantity => quantity.count > 0)
           const updatedProductIds = quantities?.map(quantity => quantity.productId)
           const transformedProducts = {

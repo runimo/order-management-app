@@ -2,10 +2,7 @@
   import { onMounted, ref } from 'vue'
   import BaseButton from './BaseButton.vue'
   import BaseInput from './BaseInput.vue'
-  import type {
-    Product,
-    ProductDraft
-} from '@/types/index.d.ts'
+  import type { ProductDraft } from '@/types/index.d.ts'
 
   const { product } = defineProps ({
     product: {

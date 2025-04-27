@@ -36,7 +36,7 @@ const formatDate = (isoString: string) => {
   return dayjs(isoString).format('D MMM YYYY, HH:mm')
 }
 
-const isCreateFormOpen = ref<Boolean>(false)
+const isCreateFormOpen = ref<boolean>(false)
 const toggleCreateForm = (): void => {
   isCreateFormOpen.value = !isCreateFormOpen.value
 }
@@ -46,7 +46,7 @@ const toggleFlyout = (orderId: string): void => {
   openFlyoutId.value = openFlyoutId.value === orderId ? null : orderId
 }
 
-const isEdit = ref<Boolean>(false)
+const isEdit = ref<boolean>(false)
 const enableEditMode = ():void => {
   isEdit.value = true
 }
