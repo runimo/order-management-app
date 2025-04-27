@@ -84,7 +84,7 @@
         price,
         name
       }
-      console.log('new product', product)
+
       addProductToOrder({ orderType, product })
     }
 

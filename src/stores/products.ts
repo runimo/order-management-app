@@ -59,8 +59,6 @@ export const useProductsStore = defineStore('products', {
             type
           }
 
-          console.log('updatedProduct', updatedProduct)
-
           const index = this.products.findIndex(el => el.id === product.id)
           if (index !== -1) {
             this.products[index] = updatedProduct
