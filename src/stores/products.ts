@@ -40,13 +40,19 @@ export const useProductsStore = defineStore('products', {
     },
 
     getters: {
+      productById: (state) => {
+        return (productId: string) => {
+          return state.products.find(product => product.id === productId) || null
+        }
+      },
+
       productsByCompanyId (state) {
         return (companyId: string) => {
           return state.products.filter(product => product.relationships.supplier.data.id === companyId)
         }
       },
 
-      productsByCurrentUserCompany(state) {
+      productsByCurrentUserCompany (state) {
         const userStore = useUserStore()
         const { currentUser } = userStore
 

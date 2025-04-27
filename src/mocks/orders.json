@@ -24,7 +24,8 @@
               "productId": "product-009",
               "count": 4
             }
-          ]
+          ],
+          "totalPrice": "1225,62"
         },
         "relationships": {
           "products": {
@@ -73,7 +74,8 @@
               "productId": "product-015",
               "count": 8
             }
-          ]
+          ],
+          "totalPrice": "1345,36"
         },
         "relationships": {
           "products": {
@@ -114,7 +116,8 @@
               "productId": "product-003",
               "count": 17
             }
-          ]
+          ],
+          "totalPrice": "3012,79"
         },
         "relationships": {
           "products": {
@@ -163,7 +166,8 @@
               "productId": "product-022",
               "count": 2
             }
-          ]
+          ],
+          "totalPrice": "2001,70"
         },
         "relationships": {
           "products": {
@@ -253,7 +257,8 @@
               "productId": "product-010",
               "count": 5
             }
-          ]
+          ],
+          "totalPrice": "1565,47"
         },
         "relationships": {
           "products": {

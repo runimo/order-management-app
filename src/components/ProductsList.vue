@@ -146,7 +146,7 @@ onMounted(() => {
             {{ product.attributes.name }}
           </td>
           <td class="p-2 border-b border-t border-gray-300">
-            €{{ product.attributes.price }}
+            {{ product.attributes.price }} €
           </td>
           <td class="p-2 border-b border-t border-gray-300">
             {{ product.attributes.stock }}
