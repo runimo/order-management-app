@@ -186,7 +186,7 @@ onMounted(() => {
               </button>
               <ListActionFlyout
                 v-if="openFlyoutId === order.id"
-                edit-button-title="You can't edit this order anymore."
+                :edit-button-title="order.attributes.status === 'delivered' || order.attributes.status === 'shipped' ? `You can't edit this order anymore.` : null"
                 :is-edit-disabled="order.attributes.status === 'delivered' || order.attributes.status === 'shipped'"
                 @delete="handleDelete(order.id)"
                 @edit="handleEdit(order)" />
@@ -348,7 +348,7 @@ onMounted(() => {
                 </button>
                 <ListActionFlyout
                   v-if="openFlyoutId === order.id"
-                  edit-button-title="You can't edit this order anymore."
+                  :edit-button-title="order.attributes.status === 'delivered' || order.attributes.status === 'shipped' ? `You can't edit this order anymore.` : null"
                   :is-edit-disabled="order.attributes.status === 'delivered' || order.attributes.status === 'shipped'"
                   @delete="handleDelete(order.id)"
                   @edit="handleEdit(order)" />
