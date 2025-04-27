@@ -1,10 +1,14 @@
 import { defineStore } from 'pinia'
 import { useUserStore } from './user'
 import response from '@/mocks/products.json'
+import type {
+  Product,
+  ProductDraft
+} from '@/types/index.d.ts'
 
 export const useProductsStore = defineStore('products', {
     state: () => ({
-      products: []
+      products: [] as Product[]
     }),
 
     actions: {
@@ -39,10 +43,10 @@ export const useProductsStore = defineStore('products', {
       },
 
       fetchProducts (): void {
-        this.products = response.data
+        this.products = response.data as Product[]
       },
 
-      updateProduct (product): void {
+      updateProduct (product: ProductDraft): void {
         const productToUpdate = this.products.find(el => el.id === product.id)
         const { id, name, price, stock } = product
         
@@ -57,7 +61,7 @@ export const useProductsStore = defineStore('products', {
             },
             relationships,
             type
-          }
+          } as Product
 
           const index = this.products.findIndex(el => el.id === product.id)
           if (index !== -1) {
@@ -69,18 +73,18 @@ export const useProductsStore = defineStore('products', {
 
     getters: {
       productById: (state) => {
-        return (productId: string) => {
+        return (productId: string): Product | null => {
           return state.products.find(product => product.id === productId) || null
         }
       },
 
       productsByCompanyId (state) {
-        return (companyId: string) => {
+        return (companyId: string): Product[] => {
           return state.products.filter(product => product.relationships.supplier.data.id === companyId)
         }
       },
 
-      productsByCurrentUserCompany (state) {
+      productsByCurrentUserCompany (state): Product[] {
         const userStore = useUserStore()
         const { currentUser } = userStore
 

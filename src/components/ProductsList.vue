@@ -5,6 +5,7 @@ import { storeToRefs } from 'pinia'
 import BaseButton from './BaseButton.vue'
 import ListActionFlyout from './ListActionFlyout.vue'
 import ProductForm from './ProductForm.vue'
+import type { Product, ProductDraft } from '@/types/index.d.ts'
 
 const productsStore = useProductsStore()
 const {
@@ -19,7 +20,7 @@ const isCreateFormOpen = ref(false)
 const toggleCreateForm = () => {
   isCreateFormOpen.value = !isCreateFormOpen.value
 }
-const newProduct = ref({
+const newProduct = ref<ProductDraft>({
   name: '',
   price: null,
   stock: null
@@ -28,7 +29,7 @@ const cancel = (): void => {
   toggleCreateForm()
   reset()
 }
-const handleSave = (product): void => {
+const handleSave = (product: ProductDraft): void => {
   newProduct.value = product
   createProduct(newProduct.value)
   toggleCreateForm()
@@ -50,7 +51,7 @@ const disableEditMode = (): void => {
   isEdit.value = false
 }
 const productBeingEdited = ref(null)
-const setProductBeingEdited = (product) => {
+const setProductBeingEdited = (product: Product) => {
   const { id } = product
   productBeingEdited.value = {
     id,
@@ -76,12 +77,12 @@ const handleDelete = (productId: string): void => {
   toggleFlyout(productId)
 }
 
-const handleEdit = (product): void => {
+const handleEdit = (product: Product): void => {
   enableEditMode()
   setProductBeingEdited(product)
   toggleFlyout(product.id)
 }
-const handleSaveEdit = (product): void => {
+const handleSaveEdit = (product: Product): void => {
   updateProductBeingEdited(product)
   updateProduct(productBeingEdited.value)
   disableEditMode()

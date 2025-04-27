@@ -72,7 +72,6 @@ type CompanyRelationship = {
   type: CompanyResourceType
 }
 
-
 export interface Company {
     type: "Company"
     id: string
@@ -92,4 +91,27 @@ export interface Company {
       }
     }
   }
+
+  export interface Product {
+    type: 'Product'
+    id: string
+    attributes: {
+      name: string
+      price: number
+      stock: number
+    }
+    relationships: {
+      supplier: {
+        data: CompanyRelationship
+      }
+    }
+  }
+
+  export interface ProductDraft {
+    id: string
+    name: string
+    price: number
+    stock: number
+  }
+  
   
