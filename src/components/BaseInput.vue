@@ -1,10 +1,4 @@
 <script setup lang="ts">
-import {
-  defineEmits,
-  defineModel,
-  defineProps
-} from 'vue'
-
 const model = defineModel()
 
 defineProps({

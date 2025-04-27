@@ -1,6 +1,5 @@
 <script setup lang="ts">
   import { computed, onMounted, ref } from 'vue'
-  import { storeToRefs } from 'pinia'
   import { useCompaniesStore } from '@/stores/companies'
   import { useOrdersStore } from '@/stores/orders'
   import { useProductsStore } from '@/stores/products'
@@ -25,9 +24,6 @@
     resetOrderByType,
     updateOrder
   } = ordersStore
-  const {
-    orderBeingEdited
-  } = storeToRefs(ordersStore)
 
   const companiesStore = useCompaniesStore()
 
