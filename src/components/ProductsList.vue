@@ -148,7 +148,9 @@ onMounted(() => {
   </div>
 
   <div class="hidden md:block mt-8">
-    <table class="min-w-full table-auto rounded-sm border-collapse border border-gray-300">
+    <table
+      v-if="!isEdit"
+      class="min-w-full table-auto rounded-sm border-collapse border border-gray-300">
       <thead>
         <tr class="bg-gray-100 text-left">
           <th class="p-2 border-b border-t border-gray-300">
@@ -188,11 +190,17 @@ onMounted(() => {
               </button>
               <ListActionFlyout
                 v-if="openFlyoutId === product.id"
-                @delete="handleDelete(product.id)" />
+                @delete="handleDelete(product.id)"
+                @edit="handleEdit(product)" />
             </div>
           </td>
         </tr>
       </tbody>
     </table>
+    <ProductForm
+      v-else
+      :product="productBeingEdited"
+      @cancel="disableEditMode"
+      @save="product => handleSaveEdit(product)" />
   </div>
 </template>
