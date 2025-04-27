@@ -9,6 +9,7 @@ import ListActionFlyout from './ListActionFlyout.vue'
 const productsStore = useProductsStore()
 const {
   createProduct,
+  deleteProduct,
   fetchProducts
 } = productsStore
 const { productsByCurrentUserCompany } = storeToRefs(productsStore)
@@ -41,6 +42,18 @@ const reset = (): void => {
     price: null,
     stock: null
   }
+}
+
+const openFlyoutId = ref<string | null>(null)
+const toggleFlyout = (productId: string): void => {
+  openFlyoutId.value = openFlyoutId.value === productId ? null : productId
+}
+
+const handleDelete = (productId: string): void => {
+  if (window.confirm('Are you sure you want to delete this product?')) {
+    deleteProduct(productId)
+  }
+  toggleFlyout(productId)
 }
 
 onMounted(() => {
@@ -99,24 +112,28 @@ onMounted(() => {
       v-for="product in productsByCurrentUserCompany"
       :key="product.id"
       class="p-4 bg-white rounded-xs shadow border border-gray-200">
-      <h2 class="text-lg font-semibold text-gray-900 mb-1">
-        {{ product.attributes.name }}
-      </h2>
+      <div class="flex justify-between">
+        <h2 class="text-lg font-semibold text-gray-900 mb-1">
+          {{ product.attributes.name }}
+        </h2>
+        <div class="relative inline-block">
+          <button
+            class="hover:bg-violet-100 hover:text-violet-700 cursor-pointer font-semibold leading-normal rounded-3xl pt-0 pb-2 px-1"
+            type="button"
+            @click="toggleFlyout(product.id)">
+            ...
+          </button>
+          <ListActionFlyout
+            v-if="openFlyoutId === product.id"
+            @delete="handleDelete(product.id)" />
+        </div>
+      </div>
       <p class="text-gray-700">
         Price: €{{ product.attributes.price }}
       </p>
       <p class="text-gray-700">
         Stock: {{ product.attributes.stock }}
       </p>
-      <div class="relative inline-block">
-        <button
-          class="hover:bg-violet-100 hover:text-violet-700 cursor-pointer font-semibold leading-normal rounded-3xl pt-0 pb-2 px-1"
-          type="button"
-          @click="toggleFlyout(product.id)">
-          ...
-        </button>
-        <ListActionFlyout v-if="openFlyoutId === product.id" />
-      </div>
     </div>
   </div>
 
@@ -159,7 +176,9 @@ onMounted(() => {
                 @click="toggleFlyout(product.id)">
                 ...
               </button>
-              <ListActionFlyout v-if="openFlyoutId === product.id" />
+              <ListActionFlyout
+                v-if="openFlyoutId === product.id"
+                @delete="handleDelete(product.id)" />
             </div>
           </td>
         </tr>

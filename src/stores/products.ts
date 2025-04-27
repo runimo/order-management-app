@@ -34,6 +34,10 @@ export const useProductsStore = defineStore('products', {
         })
       },
 
+      deleteProduct (productId: string): void {
+        this.products = this.products.filter(product => product.id !== productId)
+      },
+
       fetchProducts () {
         this.products = response.data
       }
