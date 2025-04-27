@@ -1,20 +1,21 @@
 import { defineStore } from 'pinia'
 import { useUserStore } from './user'
 import response from '@/mocks/companies.json'
+import type { Company } from '@/types/index.d.ts'
 
 export const useCompaniesStore = defineStore('companies', {
     state: () => ({
-      companies: []
+      companies: [] as Company[]
     }),
 
     actions: {
       fetchCompanies () {
-        this.companies = response.data
+        this.companies = response.data as Company[]
       }
     },
 
     getters: {
-      availableCompanies (state) {
+      availableCompanies (state): Company[] {
         const userStore = useUserStore()
         const { currentUser } = userStore
 

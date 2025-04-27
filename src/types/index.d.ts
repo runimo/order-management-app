@@ -65,3 +65,35 @@ export interface OrderDraft {
 export type ProductResourceType = 'Product'
 
 export type CompanyResourceType = 'Company'
+
+type ProductRelationship = {
+  id: string
+  type: ProductResourceType
+}
+
+type OrderRelationship = {
+  id: string
+  type: OrderResourceType
+}
+
+
+export interface Company {
+    type: "Company"
+    id: string
+    attributes: {
+      name: string
+      address: string
+    }
+    relationships: {
+      products: {
+        data: ProductRelationship[]
+      }
+      createdOrders: {
+        data: OrderRelationship[]
+      }
+      receivedOrders: {
+        data: OrderRelationship[]
+      }
+    }
+  }
+  
