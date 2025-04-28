@@ -4,30 +4,27 @@ const model = defineModel()
 defineProps({
   id: {
     type: String,
-    required: true
+    required: true,
   },
   label: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 })
 
-defineEmits([
-  'update:model-value'
-])
+defineEmits(['update:model-value'])
 </script>
 
 <template>
   <div class="w-full">
-    <label
-      :for="id"
-      class="font-semibold cursor-pointer">
+    <label :for="id" class="font-semibold cursor-pointer">
       {{ label }}
     </label>
     <input
       class="w-full border border-gray-300 rounded-xs pl-2 h-[36px]"
       :id="id"
       type="text"
-      v-model="model" />
+      v-model="model"
+    />
   </div>
 </template>

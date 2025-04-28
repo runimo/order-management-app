@@ -7,8 +7,8 @@ export const useUserStore = defineStore('user', {
       name: 'User Name',
       company: {
         id: 'company-001',
-        name: 'Company 001'
-      }
-    }
-  })
+        name: 'Company 001',
+      },
+    },
+  }),
 })

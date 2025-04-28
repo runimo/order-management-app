@@ -8,12 +8,7 @@ import ProductForm from './ProductForm.vue'
 import type { Product, ProductDraft } from '@/types/index.d.ts'
 
 const productsStore = useProductsStore()
-const {
-  createProduct,
-  deleteProduct,
-  fetchProducts,
-  updateProduct
-} = productsStore
+const { createProduct, deleteProduct, fetchProducts, updateProduct } = productsStore
 const { productsByCurrentUserCompany } = storeToRefs(productsStore)
 
 const isCreateFormOpen = ref(false)
@@ -22,8 +17,8 @@ const toggleCreateForm = () => {
 }
 const newProduct = ref<ProductDraft>({
   name: '',
-  price: null,
-  stock: null
+  price: 0,
+  stock: 0,
 })
 const cancel = (): void => {
   toggleCreateForm()
@@ -38,8 +33,8 @@ const handleSave = (product: ProductDraft): void => {
 const reset = (): void => {
   newProduct.value = {
     name: '',
-    price: null,
-    stock: null
+    price: 0,
+    stock: 0,
   }
 }
 
@@ -50,18 +45,18 @@ const enableEditMode = (): void => {
 const disableEditMode = (): void => {
   isEdit.value = false
 }
-const productBeingEdited = ref(null)
+const productBeingEdited = ref<ProductDraft | null>(null)
 const setProductBeingEdited = (product: Product) => {
   const { id } = product
   productBeingEdited.value = {
     id,
-    ...product.attributes
+    ...product.attributes,
   }
 }
-const updateProductBeingEdited = (product) => {
+const updateProductBeingEdited = (product: ProductDraft) => {
   productBeingEdited.value = {
-    id: productBeingEdited.value.id,
-    ...product
+    id: productBeingEdited.value?.id,
+    ...product,
   }
 }
 
@@ -82,7 +77,7 @@ const handleEdit = (product: Product): void => {
   setProductBeingEdited(product)
   toggleFlyout(product.id)
 }
-const handleSaveEdit = (product: Product): void => {
+const handleSaveEdit = (product: ProductDraft): void => {
   updateProductBeingEdited(product)
   updateProduct(productBeingEdited.value)
   disableEditMode()
@@ -98,23 +93,20 @@ onMounted(() => {
     <BaseButton
       v-if="!isCreateFormOpen && !isEdit"
       class="w-[90%] sm:w-[50%] md:w-[25%]"
-      @click="toggleCreateForm">
+      @click="toggleCreateForm"
+    >
       Add Product
     </BaseButton>
   </div>
-  <ProductForm
-    v-if="isCreateFormOpen"
-    @cancel="cancel"
-    @save="(product) => handleSave(product)" />
-  
+  <ProductForm v-if="isCreateFormOpen" @cancel="cancel" @save="(product) => handleSave(product)" />
+
   <div class="block md:hidden mt-8">
-    <div
-      v-if="!isEdit"
-      class="space-y-4">
+    <div v-if="!isEdit" class="space-y-4">
       <div
         v-for="product in productsByCurrentUserCompany"
         :key="product.id"
-        class="p-4 bg-white rounded-xs shadow border border-gray-200">
+        class="p-4 bg-white rounded-xs shadow border border-gray-200"
+      >
         <div class="flex justify-between">
           <h2 class="text-lg font-semibold text-gray-900 mb-1">
             {{ product.attributes.name }}
@@ -123,61 +115,52 @@ onMounted(() => {
             <button
               class="hover:bg-violet-100 hover:text-violet-700 cursor-pointer font-semibold leading-normal rounded-3xl pt-0 pb-2 px-1"
               type="button"
-              @click="toggleFlyout(product.id)">
+              @click="toggleFlyout(product.id)"
+            >
               ...
             </button>
             <ListActionFlyout
               v-if="openFlyoutId === product.id"
               @delete="handleDelete(product.id)"
-              @edit="handleEdit(product)" />
+              @edit="handleEdit(product)"
+            />
           </div>
         </div>
-        <p class="text-gray-700">
-          Price: €{{ product.attributes.price }}
-        </p>
-        <p class="text-gray-700">
-          Stock: {{ product.attributes.stock }}
-        </p>
+        <p class="text-gray-700">Price: €{{ product.attributes.price }}</p>
+        <p class="text-gray-700">Stock: {{ product.attributes.stock }}</p>
       </div>
     </div>
     <ProductForm
       v-else
       :product="productBeingEdited"
       @cancel="disableEditMode"
-      @save="product => handleSaveEdit(product)" />
-
+      @save="(product) => handleSaveEdit(product)"
+    />
   </div>
 
   <div class="hidden md:block mt-8">
     <table
       v-if="!isEdit"
-      class="min-w-full table-auto rounded-sm border-collapse border border-gray-300">
+      class="min-w-full table-auto rounded-sm border-collapse border border-gray-300"
+    >
       <thead>
         <tr class="bg-gray-100 text-left">
-          <th class="p-2 border-b border-t border-gray-300">
-            Name
-          </th>
-          <th class="p-2 border-b border-t border-gray-300">
-            Price
-          </th>
-          <th class="p-2 border-b border-t border-gray-300">
-            Stock
-          </th>
-          <th class="p-2 border-b border-t border-gray-300">
-          </th>
+          <th class="p-2 border-b border-t border-gray-300">Name</th>
+          <th class="p-2 border-b border-t border-gray-300">Price</th>
+          <th class="p-2 border-b border-t border-gray-300">Stock</th>
+          <th class="p-2 border-b border-t border-gray-300"></th>
         </tr>
       </thead>
       <tbody>
         <tr
           v-for="product in productsByCurrentUserCompany"
           :key="product.id"
-          class="hover:bg-gray-50">
+          class="hover:bg-gray-50"
+        >
           <td class="p-2 border-b border-t border-gray-300">
             {{ product.attributes.name }}
           </td>
-          <td class="p-2 border-b border-t border-gray-300">
-            {{ product.attributes.price }} €
-          </td>
+          <td class="p-2 border-b border-t border-gray-300">{{ product.attributes.price }} €</td>
           <td class="p-2 border-b border-t border-gray-300">
             {{ product.attributes.stock }}
           </td>
@@ -186,13 +169,15 @@ onMounted(() => {
               <button
                 class="hover:bg-violet-100 hover:text-violet-700 cursor-pointer font-semibold leading-normal rounded-3xl pt-0 pb-2 px-1"
                 type="button"
-                @click="toggleFlyout(product.id)">
+                @click="toggleFlyout(product.id)"
+              >
                 ...
               </button>
               <ListActionFlyout
                 v-if="openFlyoutId === product.id"
                 @delete="handleDelete(product.id)"
-                @edit="handleEdit(product)" />
+                @edit="handleEdit(product)"
+              />
             </div>
           </td>
         </tr>
@@ -202,6 +187,7 @@ onMounted(() => {
       v-else
       :product="productBeingEdited"
       @cancel="disableEditMode"
-      @save="product => handleSaveEdit(product)" />
+      @save="(product) => handleSaveEdit(product)"
+    />
   </div>
 </template>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 interface NavLink {
-  path: string;
-  name: string;
+  path: string
+  name: string
 }
 
 interface Props {
@@ -18,7 +18,8 @@ const { navLinks } = defineProps<Props>()
       :key="`navlink:${link.name.toLowerCase()}`"
       activeClass="font-semibold text-violet-700 border-b-2 border-violet-700 hover:text-violet-800 hover:border-violet-800"
       class="inline-block py-2 mx-2"
-      :to="link.path">
+      :to="link.path"
+    >
       {{ link.name }}
     </RouterLink>
   </nav>

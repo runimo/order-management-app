@@ -9,7 +9,7 @@ export interface Order {
       productId: string
       count: number
     }[]
-    totalPrice: string // e.g. "34,82" 
+    totalPrice: string // e.g. "34,82"
   }
   relationships: {
     products: {
@@ -36,7 +36,7 @@ export type ProductsTransformedForEdit = {
   name: string
   price: number
 }
-  
+
 export interface OrderTransformedForEdit {
   id: string
   createdAt: string // ISO date string
@@ -44,13 +44,13 @@ export interface OrderTransformedForEdit {
   status: OrderStatus
   products: ProductsTransformedForEdit[]
   supplierId: string
-  totalPrice: string // e.g. "34,82" 
+  totalPrice: string // e.g. "34,82"
 }
 
 export interface OrderDraft {
   products: ProductsTransformedForEdit[]
   supplierId: string
-  totalPrice: string // e.g. "34,82" 
+  totalPrice: string // e.g. "34,82"
 }
 
 export type ProductResourceType = 'Product'
@@ -73,45 +73,48 @@ type CompanyRelationship = {
 }
 
 export interface Company {
-    type: "Company"
-    id: string
-    attributes: {
-      name: string
-      address: string
+  type: 'Company'
+  id: string
+  attributes: {
+    name: string
+    address: string
+  }
+  relationships: {
+    products: {
+      data: ProductRelationship[]
     }
-    relationships: {
-      products: {
-        data: ProductRelationship[]
-      }
-      createdOrders: {
-        data: OrderRelationship[]
-      }
-      receivedOrders: {
-        data: OrderRelationship[]
-      }
+    createdOrders: {
+      data: OrderRelationship[]
+    }
+    receivedOrders: {
+      data: OrderRelationship[]
     }
   }
+}
 
-  export interface Product {
-    type: 'Product'
-    id: string
-    attributes: {
-      name: string
-      price: number
-      stock: number
-    }
-    relationships: {
-      supplier: {
-        data: CompanyRelationship
-      }
-    }
-  }
-
-  export interface ProductDraft {
-    id: string
+export interface Product {
+  type: 'Product'
+  id: string
+  attributes: {
     name: string
     price: number
     stock: number
   }
-  
-  
+  relationships: {
+    supplier: {
+      data: CompanyRelationship
+    }
+  }
+}
+
+export interface ProductDraft {
+  id?: string | undefined
+  name: string
+  price: number
+  stock: number
+}
+
+export interface AvailableSuppliers {
+  id: string
+  label: string
+}
